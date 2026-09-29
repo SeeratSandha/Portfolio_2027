@@ -1,0 +1,1941 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Seerat's Garden (Copy)</title>
+<meta name="description" content="Seerat Sandha — frontend developer and UI/UX designer. A portfolio grown as a living, interactive garden.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@500;700&display=swap">
+<style>
+:root{
+  --ground:#E9EEE0; --sky:#D6E6D8; --sky2:#F4F2DF; --paper:#F8F7EE; --paper-2:#EFEEDF;
+  --ink:#16231A; --ink-soft:#4C5E50; --line:rgba(22,35,26,.14);
+  --leaf:#3F7D47; --leaf-deep:#24502E; --leaf-light:#7FAF5E;
+  --petal-a:#D6417F; --petal-b:#8D6CCF; --petal-c:#FFFCF2; --petal-d:#EE8F2A; --pollen:#EDB92E; --petal-e:#3E9FC4;
+  --dry-1:#5F6E33; --dry-2:#8C6D3F; --dry-3:#B0567A; --soil:#5A4431; --tag:#D2B27A;
+  --accent:var(--petal-a); --on-accent:#FFFFFF;
+  --sun:1; --moon:0; --shadow:rgba(30,45,25,.18);
+  --f-display:"Bricolage Grotesque", "Avenir Next Condensed", "Arial Narrow", system-ui, sans-serif;
+  --f-body:"Instrument Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --f-hand:"Caveat", "Bradley Hand", "Segoe Print", cursive;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#0B1510; --sky:#0D1B21; --sky2:#081014; --paper:#142019; --paper-2:#1A281F;
+    --ink:#E4ECDD; --ink-soft:#9DB0A0; --line:rgba(228,236,221,.14);
+    --leaf:#4E9A5A; --leaf-deep:#2C6238; --leaf-light:#8CC46E;
+    --petal-a:#F06A9F; --petal-b:#A78BEA; --petal-c:#EDEBDD; --petal-d:#F4A24A; --pollen:#F6DF72; --petal-e:#6CC3E3;
+    --dry-1:#A3B46A; --dry-2:#C29B66; --dry-3:#D8809F; --soil:#3A2C20; --tag:#C4A06A;
+    --on-accent:#1A0710; --sun:0; --moon:1; --shadow:rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#0B1510; --sky:#0D1B21; --sky2:#081014; --paper:#142019; --paper-2:#1A281F;
+  --ink:#E4ECDD; --ink-soft:#9DB0A0; --line:rgba(228,236,221,.14);
+  --leaf:#4E9A5A; --leaf-deep:#2C6238; --leaf-light:#8CC46E;
+  --petal-a:#F06A9F; --petal-b:#A78BEA; --petal-c:#EDEBDD; --petal-d:#F4A24A; --pollen:#F6DF72; --petal-e:#6CC3E3;
+  --dry-1:#A3B46A; --dry-2:#C29B66; --dry-3:#D8809F; --soil:#3A2C20; --tag:#C4A06A;
+  --on-accent:#1A0710; --sun:0; --moon:1; --shadow:rgba(0,0,0,.45);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--ground);color:var(--ink);font:400 17px/1.6 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background-color .6s,color .6s}
+a{color:inherit}
+::selection{background:var(--accent);color:var(--on-accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1160px;margin-inline:auto;padding-inline:24px}
+.mono{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0}
+p{margin:0}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px)}
+.nav-in{display:flex;align-items:center;gap:24px;height:64px}
+.nav::before{content:"";position:absolute;inset:0;background:color-mix(in srgb,var(--ground) 72%,transparent);backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);opacity:var(--nav-bg,0);transition:opacity .4s;border-bottom:1px solid var(--line)}
+.brand{position:relative;display:flex;white-space:nowrap;align-items:center;gap:10px;text-decoration:none;font:700 19px/1 var(--f-display);font-variation-settings:"wdth" 85;letter-spacing:-.01em}
+.brand svg{width:26px;height:26px}
+.nav-links{position:relative;display:flex;gap:4px;margin-left:auto;list-style:none;padding:0;margin-block:0}
+.nav-links a{display:block;padding:8px 12px;border-radius:999px;text-decoration:none;font-size:14.5px;font-weight:500;color:var(--ink-soft);transition:color .2s,background .2s}
+.nav-links a:hover{color:var(--ink);background:var(--line)}
+.theme-btn{position:relative;display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:7px 14px 7px 8px;font:500 13.5px var(--f-body);cursor:pointer;white-space:nowrap}
+.theme-btn .dot{width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--pollen),var(--petal-d));box-shadow:0 0 12px var(--pollen);transition:background .4s}
+@media (max-width:820px){.nav-links{display:none}.theme-btn{margin-left:auto}}
+
+/* ---------- hero ---------- */
+#world{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
+.no-webgl .walk-stage{background:linear-gradient(180deg,var(--sky2) 0%,var(--sky) 58%,var(--ground) 100%)}
+.hero{position:relative;z-index:1;min-height:max(620px,100vh);min-height:max(620px,100svh);overflow:hidden;background:linear-gradient(180deg,var(--sky2) 0%,var(--sky) 58%,var(--ground) 100%);transition:background .6s;touch-action:pan-y;cursor:crosshair;--sway:0}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#gardenFront{z-index:3;pointer-events:none}
+#gardenBack{z-index:1}
+.orb{position:absolute;border-radius:50%;pointer-events:none;z-index:0;transition:opacity .8s}
+.sun{width:620px;height:620px;right:-140px;top:-220px;background:radial-gradient(circle,rgba(255,224,140,.75),rgba(255,224,140,0) 65%);opacity:var(--sun)}
+.moon{width:110px;height:110px;right:12%;top:120px;background:radial-gradient(circle at 38% 38%,#F4F6E8,#C9D3BE 70%);box-shadow:0 0 60px 20px rgba(220,235,210,.18),0 0 180px 60px rgba(160,200,170,.08);opacity:var(--moon)}
+.moon::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 64% 60%,rgba(0,0,0,.08) 0 9%,transparent 10%),radial-gradient(circle at 40% 70%,rgba(0,0,0,.07) 0 6%,transparent 7%),radial-gradient(circle at 58% 30%,rgba(0,0,0,.06) 0 5%,transparent 6%)}
+.hero-copy{position:relative;z-index:2;padding-top:calc(64px + clamp(20px,4vh,48px));pointer-events:none}
+/* the name sits near the left edge instead of in the centred column */
+.hero-copy.wrap,.nav-in.wrap{max-width:none;margin-inline:0;padding-inline:clamp(24px,5vw,110px)}
+.hero-copy a,.hero-copy button{pointer-events:auto}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--ink-soft)}
+.eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--leaf);box-shadow:0 0 0 4px color-mix(in srgb,var(--leaf) 25%,transparent);animation:pulse 2.4s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px color-mix(in srgb,var(--leaf) 0%,transparent)}}
+.hero h1{margin-top:18px;font-size:clamp(60px,13.4vw,196px);line-height:.84;font-weight:800;font-variation-settings:"wdth" 80,"opsz" 96;letter-spacing:-.028em}
+.hero h1 .line{display:block;white-space:nowrap}
+.hero h1 .ch{display:inline-block;transform-origin:50% 100%;transform:rotate(calc(var(--sway) * var(--k) * 1deg));animation:sprout .9s cubic-bezier(.2,1.4,.4,1) backwards;animation-delay:calc(var(--i) * 45ms)}
+.hero h1 .line:last-child .ch{color:var(--leaf-deep)}
+:root[data-theme="dark"] .hero h1 .line:last-child .ch{color:var(--leaf-light)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .hero h1 .line:last-child .ch{color:var(--leaf-light)}}
+@keyframes sprout{from{transform:translateY(.18em) scaleY(.7)}}
+.hero-lede{margin-top:28px;max-width:31ch;font-size:clamp(19px,2vw,23px);line-height:1.45;color:var(--ink)}
+.hero-lede em{font-style:italic;color:var(--accent)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{position:relative;display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;font:600 15.5px var(--f-body);text-decoration:none;border:1.5px solid var(--ink);cursor:pointer;transition:transform .25s cubic-bezier(.3,1.5,.5,1),background .25s,color .25s}
+.btn-solid{background:var(--ink);color:var(--ground)}
+.btn-solid:hover{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn-ghost{background:color-mix(in srgb,var(--paper) 60%,transparent);color:var(--ink);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.btn-ghost:hover{background:var(--paper)}
+.btn svg{width:16px;height:16px}
+.cursor-tip{position:absolute;z-index:6;left:0;top:0;pointer-events:none;white-space:nowrap;padding:7px 13px;border-radius:999px;background:color-mix(in srgb,var(--ink) 86%,transparent);color:var(--ground);font:500 12.5px var(--f-body);box-shadow:0 8px 20px -10px var(--shadow);opacity:0;transition:opacity .3s}
+.cursor-tip.on{opacity:1}
+.hint{position:absolute;z-index:4;left:0;right:0;bottom:22px;pointer-events:none}
+.hint .wrap{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}
+.hint-pill{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;background:color-mix(in srgb,var(--paper) 78%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line);color:var(--ink-soft);font-size:11px}
+.hint-pill b{color:var(--ink);font-weight:500}
+/* large screens: use more of the width and scale type up, so the page never looks like a narrow strip */
+@media (min-width:1700px){
+  .wrap{max-width:1480px;padding-inline:40px}
+  body{font-size:18.5px}
+  .hero h1{font-size:clamp(196px,11vw,270px)}
+  .hero-lede{font-size:26px}
+  .sec-head h2{font-size:clamp(86px,5vw,118px)}
+  .sec-head p{font-size:19.5px}
+  .statement{font-size:clamp(40px,2.4vw,52px)}
+  .wp{width:min(540px,32vw)}
+}
+@media (min-width:2300px){.wrap{max-width:1840px}}
+@media (max-width:700px){
+  .moon{width:58px;height:58px;right:22px;top:auto;bottom:260px}
+  .hero .eyebrow{font-size:10.5px;letter-spacing:.08em}
+}
+@media (max-width:700px){.hero{padding-bottom:210px}.hint .count,.hint .long{display:none}.hint .short{display:inline}}
+.hint .short{display:none}
+
+/* ---------- ticker ---------- */
+.ticker{position:relative;z-index:1;border-block:1px solid var(--line);background:var(--paper);overflow:hidden;padding-block:18px}
+.ticker-track{display:flex;width:max-content;animation:tick 38s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker span{display:inline-flex;align-items:center;gap:28px;padding-right:28px;font:700 clamp(28px,4vw,44px)/1 var(--f-display);font-variation-settings:"wdth" 80;letter-spacing:-.02em;white-space:nowrap}
+.ticker span:nth-child(even){color:transparent;-webkit-text-stroke:1.2px var(--ink)}
+.ticker svg{width:28px;height:28px;flex:none}
+@keyframes tick{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){.ticker-track{animation:none}}
+
+/* ---------- sections ---------- */
+section.block{position:relative;z-index:1;padding-block:clamp(84px,11vw,150px)}
+section.block:not(.contact){background:var(--ground)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:28px 60px;align-items:end;margin-bottom:clamp(40px,6vw,72px)}
+.sec-head .mono{color:var(--accent);display:block;margin-bottom:16px}
+.sec-head h2{font-size:clamp(42px,6.4vw,86px);line-height:.95;font-weight:720;font-variation-settings:"wdth" 86,"opsz" 96;letter-spacing:-.02em}
+.sec-head h2 .soft{color:var(--leaf)}
+.sec-head p{color:var(--ink-soft);max-width:46ch;font-size:17.5px}
+@media (max-width:820px){.sec-head{grid-template-columns:1fr}}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:60px;align-items:start}
+.statement{font:500 clamp(26px,3.2vw,40px)/1.18 var(--f-display);font-variation-settings:"wdth" 92;letter-spacing:-.02em}
+.statement mark{background:none;color:inherit;background-image:linear-gradient(transparent 62%,color-mix(in srgb,var(--pollen) 55%,transparent) 62% 92%,transparent 92%);padding-inline:2px}
+.notes{border:1px solid var(--line);border-radius:18px;background:var(--paper);padding:26px 28px;position:relative}
+.notes h3{font:700 30px/1 var(--f-hand);color:var(--leaf);margin-bottom:12px}
+.notes dl{margin:0;display:grid;gap:0}
+.notes dl div{display:grid;grid-template-columns:130px minmax(0,1fr);gap:14px;padding-block:12px;border-top:1px dashed var(--line)}
+.notes dt{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);padding-top:3px}
+.notes dd{margin:0;font-size:15.5px}
+@media (max-width:900px){.about-grid{grid-template-columns:1fr;gap:40px}}
+@media (max-width:460px){.notes dl div{grid-template-columns:1fr;gap:2px}}
+
+/* garden walk: scroll-driven skills */
+.walk{position:relative;z-index:1;height:900vh}
+.walk-intro h2,.walk-intro p{text-shadow:0 1px 18px color-mix(in srgb,var(--ground) 70%,transparent)}
+.walk-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.walk-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.walk-stage .moon{top:90px}
+.walk-intro{position:absolute;left:0;right:0;top:15%;z-index:2;text-align:center;pointer-events:none;will-change:transform,opacity}
+.walk-intro .mono{color:var(--accent)}
+.walk-intro h2{margin-top:14px;font-size:clamp(46px,8vw,118px);line-height:.88;font-weight:800;font-variation-settings:"wdth" 78,"opsz" 96;letter-spacing:-.035em}
+.walk-intro h2 span{color:var(--leaf)}
+.walk-intro p{margin:18px auto 0;max-width:40ch;color:var(--ink-soft);font-size:18px}
+.scroll-cue{display:inline-flex;flex-direction:column;align-items:center;gap:10px;margin-top:26px;color:var(--ink-soft)}
+.scroll-cue i{display:block;width:1.5px;height:46px;background:linear-gradient(var(--ink-soft),transparent);transform-origin:top;animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0)}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.wp{position:absolute;z-index:3;top:50%;width:min(450px,40vw);padding:30px 32px 26px;border-radius:24px;background:color-mix(in srgb,var(--paper) 64%,transparent);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);border:1px solid color-mix(in srgb,var(--ink) 10%,transparent);box-shadow:0 30px 60px -30px var(--shadow);transform:translateY(calc(-50% + var(--shift,0) * 1px));opacity:0;visibility:hidden;will-change:transform,opacity}
+.wp[data-side="left"]{left:max(24px,calc(50% - 580px))}
+.wp[data-side="right"]{right:max(88px,calc(50% - 580px))}
+.wp-idx{display:flex;align-items:center;gap:10px;color:var(--ink-soft)}
+.wp-idx b{font-weight:500;color:var(--c)}
+.wp-idx::after{content:"";flex:1;height:1px;background:var(--line)}
+.wp h3{margin-top:14px;font-size:clamp(40px,4.8vw,70px);line-height:.95;font-weight:720;font-variation-settings:"wdth" 86,"opsz" 96;letter-spacing:-.02em}
+.wp-latin{margin-top:8px;font-style:italic;color:var(--c);font-size:16px;font-weight:500}
+.wp-desc{margin-top:16px;font-size:17px;line-height:1.5}
+.chips{list-style:none;padding:0;margin:18px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.chips li{padding:6px 12px;border-radius:999px;font-size:13px;font-weight:500;border:1px solid color-mix(in srgb,var(--c) 45%,transparent);background:color-mix(in srgb,var(--c) 12%,transparent)}
+.wp-growth{margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;align-items:center;color:var(--ink-soft);font-size:11px}
+.growth{display:inline-flex;gap:4px;align-items:center;color:var(--ink);font-family:var(--f-body);font-size:14px;font-weight:500;letter-spacing:0;text-transform:none}
+.growth svg{width:14px;height:14px}
+.growth .on{fill:var(--leaf)}
+.growth .off{fill:none;stroke:var(--ink-soft);stroke-width:1.3;opacity:.6}
+/* skill cards: the site's frosted card, with the butterfly in a tinted specimen box on top */
+.wp.fg{opacity:0;visibility:hidden;transform:translateY(-50%) scale(.94);transform-origin:50% 30%;
+  transition:opacity .45s,transform .7s cubic-bezier(.2,1.2,.3,1),visibility 0s linear .7s}
+.wp.fg.open{opacity:1;visibility:visible;transform:translateY(-50%) scale(1);transition:opacity .45s,transform .7s cubic-bezier(.2,1.2,.3,1),visibility 0s}
+.fg-fly{position:relative;height:140px;margin:-8px -10px 20px;border-radius:16px;perspective:520px;
+  background:radial-gradient(ellipse at 50% 35%,color-mix(in srgb,var(--paper) 70%,transparent),transparent 70%),color-mix(in srgb,var(--c) 16%,var(--paper));border:1px solid color-mix(in srgb,var(--c) 22%,transparent)}
+.fg-bf{position:absolute;left:50%;top:56%;width:0;height:0;transform-style:preserve-3d;transform:rotateX(34deg) rotateZ(-16deg);animation:fgFloat 3.2s ease-in-out infinite}
+.fg-w{position:absolute;top:-44px;width:88px;height:88px;max-width:none;animation:fgFlapR 1.6s ease-in-out infinite}
+.fg-w.r,.fg-w.l{left:0;transform-origin:0 50%}
+.fg-w.l{animation-name:fgFlapL}
+.fg-body{position:absolute;left:-4px;top:-34px;width:8px;height:60px;border-radius:5px;background:linear-gradient(90deg,#0E0B08,#3A2E22,#0E0B08)}
+.fg-shadow{position:absolute;left:50%;bottom:8px;width:110px;height:14px;margin-left:-55px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--ink) 28%,transparent),transparent);animation:fgShadow 3.2s ease-in-out infinite}
+@keyframes fgFlapR{0%,100%{transform:rotateY(-12deg)}50%{transform:rotateY(-52deg)}}
+@keyframes fgFlapL{0%,100%{transform:rotateY(12deg) scaleX(-1)}50%{transform:rotateY(52deg) scaleX(-1)}}
+@keyframes fgFloat{0%,100%{transform:rotateX(34deg) rotateZ(-16deg) translateZ(0)}50%{transform:rotateX(34deg) rotateZ(-16deg) translateZ(10px)}}
+@keyframes fgShadow{50%{transform:scale(.86);opacity:.75}}
+@media (max-width:760px){
+  .wp.fg{transform:translateY(28px) scale(.97)}
+  .wp.fg.open{transform:none}
+  .fg-fly{height:84px;margin:-6px -6px 12px}.fg-w{width:62px;height:62px;top:-31px}.fg-body{height:44px;top:-24px}
+}
+@media (prefers-reduced-motion: reduce){.fg-bf,.fg-w,.fg-shadow{animation:none}}
+.walk-rail{position:absolute;z-index:4;right:22px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:6px;list-style:none;margin:0;padding:0}
+.walk-rail button{display:flex;align-items:center;justify-content:flex-end;gap:10px;background:none;border:0;padding:4px 0;cursor:pointer;color:var(--ink-soft);font:500 12.5px var(--f-body)}
+.walk-rail button span{opacity:0;transform:translateX(6px);transition:opacity .3s,transform .3s}
+.walk-rail button i{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--ink-soft);transition:all .35s cubic-bezier(.3,1.6,.5,1)}
+.walk-rail:hover button span{opacity:1;transform:none}
+.walk-rail button[aria-current="true"]{color:var(--ink)}
+.walk-rail button[aria-current="true"] i{background:var(--accent);border-color:var(--accent);transform:scale(1.5)}
+.walk-skip{position:absolute;z-index:6;top:calc(64px + 16px);right:24px;display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:color-mix(in srgb,var(--paper) 80%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:var(--ink);font:600 13.5px var(--f-body);cursor:pointer;transition:background .2s,transform .2s}
+.walk-skip:hover{background:var(--paper);transform:translateY(-1px)}
+.walk-skip svg{width:14px;height:14px}
+@media (max-width:760px){.walk-skip{right:16px;top:calc(64px + 10px);padding:8px 13px;font-size:12.5px}.walk-rail{top:118px!important}}
+.walk-bar{position:absolute;z-index:4;left:0;right:0;bottom:0;height:3px;background:var(--line)}
+.walk-bar span{display:block;height:100%;background:linear-gradient(90deg,var(--leaf),var(--accent));transform-origin:left;transform:scaleX(0)}
+@media (max-width:760px){
+  .wp{left:16px!important;right:16px!important;width:auto;top:auto;bottom:22px;padding:22px 22px 18px;transform:translateY(calc(var(--shift,0) * 1px))}
+  .wp h3{font-size:44px}
+  .wp-desc{font-size:15.5px;margin-top:10px}
+  .chips{margin-top:12px}
+  .wp-growth{margin-top:12px;padding-top:10px}
+  .walk-rail{top:74px;right:auto;left:50%;transform:translateX(-50%);flex-direction:row;gap:10px}
+  .walk-rail button span{display:none}
+  .walk-intro{top:18%}
+}
+@media (prefers-reduced-motion: reduce){.scroll-cue i{animation:none}}
+/* seed packets */
+.packets{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:30px;perspective:1100px}
+.packet-wrap{filter:drop-shadow(0 18px 22px var(--shadow));transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .6s cubic-bezier(.2,1.2,.4,1);transform-style:preserve-3d}
+.packet-wrap.live{transition:transform .12s linear}
+.packet{position:relative;height:100%;background:var(--paper);padding:30px 20px 22px;display:flex;flex-direction:column;gap:12px;
+  -webkit-mask:conic-gradient(from 135deg at 50% 0,#000 90deg,#0000 0) top/16px 8px repeat-x,linear-gradient(#000 0 0) bottom/100% calc(100% - 8px) no-repeat;
+  mask:conic-gradient(from 135deg at 50% 0,#000 90deg,#0000 0) top/16px 8px repeat-x,linear-gradient(#000 0 0) bottom/100% calc(100% - 8px) no-repeat}
+.packet::before{content:"";position:absolute;left:0;right:0;top:8px;height:6px;background:var(--hue)}
+.packet::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.45),transparent 45%);mix-blend-mode:soft-light;opacity:0;transition:opacity .3s;pointer-events:none}
+.packet-wrap:hover .packet::after{opacity:1}
+.pk-top{display:flex;justify-content:space-between;color:var(--ink-soft);font-size:10.5px}
+.pk-art{display:block;width:100%;height:190px;border-radius:10px;background:color-mix(in srgb,var(--hue) 14%,var(--paper))}
+.packet h3{font-size:30px;line-height:.98;font-weight:750;font-variation-settings:"wdth" 82;letter-spacing:-.02em}
+.pk-latin{font-style:italic;color:var(--ink-soft);font-size:14.5px;margin-top:-6px}
+.pk-desc{font-size:15px;line-height:1.5}
+.pk-facts{margin:auto 0 0;border-top:1.5px solid var(--ink);padding-top:10px;display:grid;gap:6px}
+.pk-facts div{display:grid;grid-template-columns:76px minmax(0,1fr);gap:10px;font-size:13px;line-height:1.4}
+.pk-facts dt{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--hue-ink,var(--ink-soft));padding-top:1px}
+.pk-facts dd{margin:0}
+
+/* growth cycle */
+.cycle{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.cycle::before{content:"";position:absolute;left:0;right:0;top:139px;height:2px;background:repeating-linear-gradient(90deg,var(--soil) 0 10px,transparent 10px 16px);opacity:.55}
+.stage{position:relative;cursor:default}
+.stage svg{display:block;width:100%;max-width:170px;height:140px;margin-inline:auto;overflow:visible}
+.stage .st-stem{fill:none;stroke:var(--leaf);stroke-width:3;stroke-linecap:round;stroke-dasharray:120;stroke-dashoffset:0}
+.stage .st-leaf{fill:var(--leaf-light);transform-box:fill-box}
+.stage .st-bloom{transform-box:fill-box;transform-origin:50% 50%}
+.stage .st-seed{fill:var(--soil)}
+.stage.is-active .st-stem{animation:draw 1.2s ease-out both}
+.stage.is-active .st-leaf{animation:pop .7s .5s cubic-bezier(.3,1.7,.5,1) both}
+.stage.is-active .st-bloom{animation:pop .8s .8s cubic-bezier(.3,1.7,.5,1) both}
+@keyframes draw{from{stroke-dashoffset:120}}
+@keyframes pop{from{transform:scale(0)}}
+.st-leaf.l{transform-origin:100% 100%}.st-leaf.r{transform-origin:0 100%}
+.stage-body{margin-top:26px;padding:20px;border-radius:16px;border:1px solid var(--line);transition:background .4s,border-color .4s,transform .4s}
+.stage.is-active .stage-body{background:var(--paper);border-color:color-mix(in srgb,var(--leaf) 45%,transparent);transform:translateY(-4px)}
+.stage .num{color:var(--accent)}
+.stage h3{font-size:30px;font-weight:750;font-variation-settings:"wdth" 82;letter-spacing:-.02em;margin:6px 0 8px}
+.stage p{color:var(--ink-soft);font-size:15.5px}
+@media (max-width:900px){.cycle{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:48px}.cycle::before{display:none}}
+@media (max-width:520px){.cycle{grid-template-columns:1fr}}
+
+/* contact */
+.contact{background:var(--paper);border-top:1px solid var(--line)}
+.contact-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:60px;align-items:start}
+.contact h2{font-size:clamp(48px,7vw,96px);line-height:.95;font-weight:750;font-variation-settings:"wdth" 86,"opsz" 96;letter-spacing:-.02em}
+.contact h2 span{color:var(--accent)}
+.contact .lead{margin-top:22px;color:var(--ink-soft);max-width:40ch;font-size:18px}
+.mail{margin-top:30px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 10px 10px 18px;border:1.5px solid var(--ink);border-radius:999px;width:fit-content;max-width:100%}
+.mail code{font:500 15px var(--f-mono);user-select:all;overflow-wrap:anywhere}
+.mail button{border:0;background:var(--ink);color:var(--ground);border-radius:999px;padding:9px 16px;font:600 13.5px var(--f-body);cursor:pointer}
+.bed{position:relative;border-radius:14px;overflow:hidden;height:300px;background:linear-gradient(180deg,var(--sky2),var(--sky) 70%);border:10px solid var(--tag);border-image:repeating-linear-gradient(90deg,var(--tag) 0 60px,color-mix(in srgb,var(--tag) 80%,#000) 60px 62px) 10;box-shadow:inset 0 -30px 40px -20px var(--shadow)}
+.bed canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.bed-cap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--ink-soft);margin-bottom:10px}
+form.plant{margin-top:16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:10px;align-items:end}
+form.plant label{display:grid;gap:6px;font-size:13px;color:var(--ink-soft);font-weight:500}
+form.plant input,form.plant select{width:100%;font:500 15.5px var(--f-body);color:var(--ink);background:var(--ground);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;transition:border-color .2s}
+form.plant input:focus,form.plant select:focus{border-color:var(--leaf);outline:none}
+form.plant .btn{padding:12px 20px}
+.status{min-height:48px;margin-top:12px;font-size:14.5px;color:var(--ink-soft)}
+.status b{color:var(--ink)}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr;gap:44px}}
+@media (max-width:560px){form.plant{grid-template-columns:1fr}}
+
+footer{position:relative;z-index:1;padding-block:34px;border-top:1px solid var(--line);background:var(--paper)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;color:var(--ink-soft);font-size:14px}
+footer a{text-decoration-color:var(--line);text-underline-offset:3px}
+
+/* scroll vine */
+.vine{position:fixed;left:0;top:0;bottom:0;width:60px;z-index:40;pointer-events:none;display:none}
+.vine svg{width:100%;height:100%;overflow:visible}
+.vine .v-path{fill:none;stroke:var(--leaf-deep);stroke-width:2.2;stroke-linecap:round}
+.vine .v-leaf path{fill:var(--leaf);transform:scale(0);transition:transform .6s cubic-bezier(.3,1.7,.5,1)}
+.vine .v-leaf.on path{transform:scale(1)}
+.vine .v-leaf:nth-child(3n) path{fill:var(--leaf-light)}
+.vine .v-flower{transform:scale(0);transition:transform .7s cubic-bezier(.3,1.7,.5,1);transform-box:fill-box;transform-origin:50% 50%}
+.vine .v-flower.on{transform:scale(1)}
+/* the scroll-progress vine is turned off */
+
+@media (prefers-reduced-motion: reduce){
+  .hero h1 .ch{animation:none}
+  .eyebrow i{animation:none}
+  .stage.is-active .st-stem,.stage.is-active .st-leaf,.stage.is-active .st-bloom{animation:none}
+}
+</style>
+
+<canvas id="world" aria-hidden="true"></canvas>
+<div class="vine" aria-hidden="true"><svg id="vine"><path class="v-path" id="vinePath"/></svg></div>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="Seerat's garden, back to top">
+      <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M13 24V12" stroke="var(--leaf-deep)" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M13 14C7 14 4 10 4 5c5 0 9 3 9 9Z" fill="var(--leaf)"/><path d="M13 12c0-5 3-8 9-8 0 5-3 8-9 8Z" fill="var(--leaf-light)"/></svg>
+      Seerat's garden
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#work">Projects</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch between day and night garden"><span class="dot" id="themeDot"></span><span id="themeLabel">Night garden</span></button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="orb sun"></div>
+  <div class="orb moon"></div>
+  <canvas id="gardenBack" aria-hidden="true"></canvas>
+  <div class="hero-copy wrap">
+    <span class="eyebrow mono"><i></i>Frontend developer · UI/UX designer</span>
+    <h1 id="heroName" aria-label="Seerat Sandha"><span class="line" aria-hidden="true">Seerat</span><span class="line" aria-hidden="true">Sandha</span></h1>
+    <p class="hero-lede">I design and build websites that are simple to use, quick to load, and <em>full of life</em>, just like a garden.</p>
+    <div class="cta">
+      <a class="btn btn-solid" href="#work">See what I've grown
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="btn btn-ghost" href="#contact">Plant a seed with me</a>
+    </div>
+  </div>
+  <canvas id="gardenFront" aria-hidden="true"></canvas>
+  <div class="cursor-tip" id="cursorTip" aria-hidden="true">Click to plant a flower</div>
+</section>
+
+
+<section class="block" id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="mono">About me</span><h2>A designer who <span class="soft">builds</span>, a developer who <span class="soft">cares</span>.</h2></div>
+      <p>I work between design and code. I plan how a page should work, try out ideas, then build it properly: fast, easy for everyone to use, and with movement that has a purpose.</p>
+    </div>
+    <div class="about-grid">
+      <p class="statement">A good website is like a garden. It needs <mark>good soil</mark> (clean, solid code), the <mark>right light</mark> (a clear layout), and a little magic: the small details people remember after they leave.</p>
+      <aside class="notes">
+        <h3>Quick facts</h3>
+        <dl>
+          <div><dt>Role</dt><dd>Frontend developer and UI/UX designer</dd></div>
+          <div><dt>Best at</dt><dd>React, TypeScript and CSS</dd></div>
+          <div><dt>Also works with</dt><dd>Back-end code (Node &amp; Express), databases and AI tools</dd></div>
+          <div><dt>Learning now</dt><dd>3D graphics for the web (WebGL)</dd></div>
+          <div><dt>Works</dt><dd>Remote, hybrid or in the office</dd></div>
+          <div><dt>Available</dt><dd id="season">Open to frontend and design jobs</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="walk" id="skills" aria-label="Skills">
+  <div class="walk-stage" id="walkStage">
+    <div class="walk-intro wrap" id="walkIntro">
+      <span class="mono">My skills</span>
+      <h2>Eight skills, <span>grown</span> one at a time.</h2>
+      <p>Eight butterflies live in this meadow, one for each skill. Scroll to reach one, and it will bring you its card.</p>
+      <span class="scroll-cue mono">Scroll down<i></i></span>
+    </div>
+    <div id="walkPanels"></div>
+    <ul class="walk-rail" id="walkRail" aria-label="Jump to a skill"></ul>
+    <button type="button" class="walk-skip" id="walkSkip">Skip the walk <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10M4 9l4 4 4-4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div class="walk-bar" aria-hidden="true"><span id="walkBar"></span></div>
+  </div>
+</section>
+<section class="block" id="work" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="mono">Projects</span><h2>Things I've <span class="soft">grown</span>.</h2></div>
+      <p>Real projects I've built. Each card shows what it does and the tools behind it. Move your mouse over a card to tilt it.</p>
+    </div>
+    <div class="packets" id="packets"></div>
+  </div>
+</section>
+
+<section class="block" id="process" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="mono">My process</span><h2>How a project <span class="soft">grows</span>.</h2></div>
+      <p>The same four steps for every project, big or small. Hover a step to watch it grow.</p>
+    </div>
+    <div class="cycle" id="cycle">
+      <article class="stage">
+        <svg viewBox="0 0 120 140" aria-hidden="true"><path class="st-stem" d="M60 139c-2 4-6 7-10 8M60 139c3 3 5 7 4 11" style="stroke:var(--soil);stroke-width:1.6"/><ellipse class="st-seed st-bloom" cx="60" cy="132" rx="10" ry="6.5"/></svg>
+        <div class="stage-body"><span class="mono num">01 · Seed</span><h3>Research</h3><p>I start by learning who will use it, what they need, and where they get stuck.</p></div>
+      </article>
+      <article class="stage">
+        <svg viewBox="0 0 120 140" aria-hidden="true"><path class="st-stem" d="M60 139C60 125 61 112 60 98"/><path class="st-leaf l" d="M60 100C50 100 42 94 40 84c11 0 18 5 20 16Z"/><path class="st-leaf r" d="M60 100c2-11 9-16 20-16-2 10-10 16-20 16Z"/></svg>
+        <div class="stage-body"><span class="mono num">02 · Sprout</span><h3>Wireframe</h3><p>Sketches and clickable mockups in Figma, tested with people before any code is written.</p></div>
+      </article>
+      <article class="stage">
+        <svg viewBox="0 0 120 140" aria-hidden="true"><path class="st-stem" d="M60 139C58 115 63 90 60 62"/><path class="st-leaf l" d="M59 112c-12 0-21-7-23-18 12 0 21 6 23 18Z"/><path class="st-leaf r" d="M61 96c2-12 11-18 23-18-2 11-11 18-23 18Z"/><path class="st-bloom" d="M60 64c-9-4-11-14-6-24 3 5 5 7 6 7 1 0 3-2 6-7 5 10 3 20-6 24Z" style="fill:var(--petal-a)"/></svg>
+        <div class="stage-body"><span class="mono num">03 · Bloom</span><h3>Build</h3><p>I build it properly: it works on every screen, is easy for everyone to use, and stays fast on a cheap phone.</p></div>
+      </article>
+      <article class="stage">
+        <svg viewBox="0 0 120 140" aria-hidden="true"><path class="st-stem" d="M60 139C57 112 64 80 60 48"/><path class="st-leaf l" d="M59 118c-13 0-22-7-24-19 12 0 22 6 24 19Z"/><path class="st-leaf r" d="M61 98c2-13 11-19 24-19-2 12-11 19-24 19Z"/><g class="st-bloom"><g style="fill:var(--petal-a)"><ellipse cx="60" cy="30" rx="6" ry="13"/><ellipse cx="60" cy="30" rx="6" ry="13" transform="rotate(45 60 44)"/><ellipse cx="60" cy="30" rx="6" ry="13" transform="rotate(90 60 44)"/><ellipse cx="60" cy="30" rx="6" ry="13" transform="rotate(135 60 44)"/><ellipse cx="60" cy="30" rx="6" ry="13" transform="rotate(180 60 44)"/><ellipse cx="60" cy="30" rx="6" ry="13" transform="rotate(225 60 44)"/><ellipse cx="60" cy="30" rx="6" ry="13" transform="rotate(270 60 44)"/><ellipse cx="60" cy="30" rx="6" ry="13" transform="rotate(315 60 44)"/></g><circle cx="60" cy="44" r="7" style="fill:var(--pollen)"/></g></svg>
+        <div class="stage-body"><span class="mono num">04 · Harvest</span><h3>Ship</h3><p>Launch it, see how people really use it, and keep making it better.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="block contact" id="contact">
+  <div class="wrap contact-grid">
+    <div>
+      <span class="mono" style="color:var(--accent)">Contact</span>
+      <h2 style="margin-top:16px">Let's grow something <span>wild</span>.</h2>
+      <p class="lead">Hiring for a frontend or UI/UX role, or have a project in mind? I'd love to hear from you.</p>
+      <div class="mail"><code id="email">seeratsandha2586@gmail.com</code><button type="button" id="copyMail">Copy email</button></div>
+    </div>
+    <div>
+      <div class="bed-cap mono"><span>Visitor garden</span><span id="bedCount">0 notes planted</span></div>
+      <div class="bed" id="bed"><canvas id="bedCanvas" aria-hidden="true"></canvas></div>
+      <form class="plant" id="plantForm" novalidate>
+        <label for="pName">Your name<input id="pName" name="name" maxlength="16" autocomplete="given-name" placeholder="Ada" required></label>
+        <label for="pWhat">What should we grow?<select id="pWhat" name="what">
+          <option value="a new app design">An app design</option>
+          <option value="a portfolio or marketing site">A website</option>
+          <option value="a design system">A design system</option>
+          <option value="something fun and interactive">Something fun</option>
+          <option value="a frontend role on your team">A role on my team</option>
+        </select></label>
+        <button class="btn btn-solid" type="submit">Plant it</button>
+      </form>
+      <p class="status" id="status" aria-live="polite">Plant a flower with your name on it, and I'll write a short message for you to send me.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Made by hand with HTML, CSS and code-drawn graphics. No frameworks were watered in the making of this page.</span>
+    <span><span id="seasonNow"></span> · <a href="#top">Back to the top</a></span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(() => {
+"use strict";
+const root = document.documentElement;
+const $ = s => document.querySelector(s);
+const TAU = Math.PI * 2;
+const lerp = (a, b, t) => a + (b - a) * t;
+const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+const ease = t => 1 - Math.pow(1 - t, 3);
+const rnd = (a, b) => a + Math.random() * (b - a);
+const pick = a => a[(Math.random() * a.length) | 0];
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const DPR = () => Math.min(window.devicePixelRatio || 1, 2);
+function mulberry(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+/* ---------- theme ---------- */
+const C = {};
+const KEYS = ["ground","sky","paper","ink","ink-soft","leaf","leaf-deep","leaf-light","petal-a","petal-b","petal-c","petal-d","petal-e","pollen","dry-1","dry-2","dry-3","soil","tag"];
+const isNight = () => root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+function readColors() {
+  const cs = getComputedStyle(root);
+  KEYS.forEach(k => C[k] = cs.getPropertyValue("--" + k).trim() || "#888");
+  C.night = isNight();
+}
+readColors();
+const themeListeners = [];
+function themeChanged() {
+  readColors();
+  $("#themeLabel").textContent = C.night ? "Day garden" : "Night garden";
+  themeListeners.forEach(f => f());
+}
+$("#themeBtn").addEventListener("click", () => { root.dataset.theme = isNight() ? "light" : "dark"; });
+new MutationObserver(themeChanged).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", themeChanged);
+
+/* ---------- drawing kit ---------- */
+function stemPts(p, len) {
+  const n = p.segs, pts = new Array(n + 1), s = len / n;
+  let x = p.x, y = p.y, a = -Math.PI / 2 + p.lean;
+  for (let i = 0; i <= n; i++) {
+    pts[i] = { x, y, a };
+    const f = i / n;
+    a += p.bend * 0.11 * f * p.flex + p.curl / n;
+    x += Math.cos(a) * s; y += Math.sin(a) * s;
+  }
+  return pts;
+}
+function taper(ctx, pts, w0, w1) {
+  const n = pts.length;
+  ctx.beginPath();
+  for (let i = 0; i < n; i++) {
+    const q = pts[i], w = lerp(w0, w1, i / (n - 1)) / 2, na = q.a + Math.PI / 2;
+    const X = q.x + Math.cos(na) * w, Y = q.y + Math.sin(na) * w;
+    i ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y);
+  }
+  for (let i = n - 1; i >= 0; i--) {
+    const q = pts[i], w = lerp(w0, w1, i / (n - 1)) / 2, na = q.a + Math.PI / 2;
+    ctx.lineTo(q.x - Math.cos(na) * w, q.y - Math.sin(na) * w);
+  }
+  ctx.closePath(); ctx.fill();
+}
+function leaf(ctx, x, y, ang, len, wid, rib = true) {
+  if (len < 0.5) return;
+  ctx.save(); ctx.translate(x, y); ctx.rotate(ang);
+  ctx.beginPath(); ctx.moveTo(0, 0);
+  ctx.quadraticCurveTo(len * 0.45, -wid, len, 0);
+  ctx.quadraticCurveTo(len * 0.45, wid, 0, 0);
+  ctx.fill();
+  if (rib && len > 10) { ctx.strokeStyle = "rgba(0,0,0,.14)"; ctx.lineWidth = 0.8; ctx.beginPath(); ctx.moveTo(1, 0); ctx.lineTo(len * 0.85, 0); ctx.stroke(); }
+  ctx.restore();
+}
+function daisy(ctx, x, y, ang, r, open, petal, center, n = 13) {
+  if (open <= 0) return;
+  const R = r * open;
+  ctx.save(); ctx.translate(x, y); ctx.rotate(ang + Math.PI / 2); ctx.scale(1, 0.72);
+  ctx.fillStyle = petal; ctx.strokeStyle = "rgba(0,0,0,.09)"; ctx.lineWidth = 0.8;
+  for (let i = 0; i < n; i++) {
+    const t = i / n * TAU;
+    ctx.beginPath(); ctx.ellipse(Math.cos(t) * R * 0.52, Math.sin(t) * R * 0.52, R * 0.5, R * 0.15, t, 0, TAU); ctx.fill(); ctx.stroke();
+  }
+  ctx.fillStyle = center; ctx.beginPath(); ctx.arc(0, 0, R * 0.25, 0, TAU); ctx.fill();
+  ctx.fillStyle = "rgba(110,60,10,.35)"; ctx.beginPath(); ctx.arc(R * 0.05, R * 0.06, R * 0.15, 0, TAU); ctx.fill();
+  ctx.restore();
+}
+function poppy(ctx, x, y, ang, r, open, petal) {
+  if (open <= 0) return;
+  const R = r * open;
+  ctx.save(); ctx.translate(x, y); ctx.rotate(ang + Math.PI / 2);
+  ctx.fillStyle = petal;
+  for (let i = 0; i < 5; i++) {
+    const t = i / 5 * TAU - Math.PI / 2;
+    ctx.globalAlpha *= 0.92;
+    ctx.beginPath(); ctx.arc(Math.cos(t) * R * 0.42, Math.sin(t) * R * 0.34, R * 0.52, 0, TAU); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = "rgba(0,0,0,.14)"; ctx.beginPath(); ctx.arc(0, 0, R * 0.34, 0, TAU); ctx.fill();
+  ctx.fillStyle = "#2A1B24"; ctx.beginPath(); ctx.arc(0, 0, R * 0.17, 0, TAU); ctx.fill();
+  ctx.restore();
+}
+function tulip(ctx, x, y, ang, r, open, petal) {
+  const R = r * (0.45 + 0.55 * open), sx = 0.72 + 0.28 * open;
+  ctx.save(); ctx.translate(x, y); ctx.rotate(ang + Math.PI / 2); ctx.scale(sx, 1);
+  ctx.fillStyle = petal;
+  ctx.beginPath();
+  ctx.moveTo(-R * 0.5, -R * 0.95); ctx.lineTo(-R * 0.22, -R * 0.58); ctx.lineTo(0, -R * 1.02); ctx.lineTo(R * 0.22, -R * 0.58); ctx.lineTo(R * 0.5, -R * 0.95);
+  ctx.bezierCurveTo(R * 0.64, -R * 0.2, R * 0.36, R * 0.06, 0, R * 0.06);
+  ctx.bezierCurveTo(-R * 0.36, R * 0.06, -R * 0.64, -R * 0.2, -R * 0.5, -R * 0.95);
+  ctx.fill();
+  ctx.fillStyle = "rgba(0,0,0,.13)";
+  ctx.beginPath(); ctx.moveTo(0, R * 0.04); ctx.quadraticCurveTo(R * 0.2, -R * 0.4, 0, -R * 1.0); ctx.quadraticCurveTo(R * 0.06, -R * 0.4, 0, R * 0.04); ctx.fill();
+  ctx.restore();
+}
+
+/* ---------- plants ---------- */
+const BLOOMS = ["daisy", "poppy", "tulip", "lavender", "foxglove", "dandelion", "daisy", "poppy", "tulip"];
+const PETAL = {
+  daisy: () => pick(["petal-c", "petal-c", "pollen"]), poppy: () => pick(["petal-a", "petal-d"]),
+  tulip: () => pick(["petal-a", "petal-d", "petal-b"]), lavender: () => "petal-b", foxglove: () => pick(["petal-a", "petal-b"]), dandelion: () => "petal-c"
+};
+function makePlant(x, yb, type, maxH, z) {
+  const k = 0.6 + z * 0.55;
+  const p = { x, y: 0, yb, type, z, g: 0, delay: 0, speed: rnd(0.28, 0.5), bend: 0, bv: 0, flex: rnd(0.7, 1.3), stiff: rnd(0.7, 1.2),
+    lean: rnd(-0.1, 0.1), curl: rnd(-0.25, 0.25), segs: 10, alpha: 0.5 + 0.5 * Math.min(z, 1), leaves: [], stemKey: "leaf", phase: rnd(0, TAU) };
+  if (type === "grass") {
+    p.h = rnd(0.3, 1) * maxH; p.w = rnd(3, 7) * k; p.curl = rnd(-0.9, 0.9); p.segs = 7;
+    p.stemKey = pick(["leaf", "leaf-deep", "leaf-light", "leaf"]); p.speed = rnd(0.5, 0.9);
+    return p;
+  }
+  p.h = rnd(0.5, 1) * maxH; p.w = rnd(2.2, 3.4) * k; p.r = rnd(15, 25) * k;
+  p.petalKey = PETAL[type]();
+  if (type === "lavender") { p.segs = 18; p.r = rnd(3, 4.6) * k; }
+  if (type === "foxglove") { p.segs = 18; p.r = rnd(6, 8.5) * k; p.side = pick([-1, 1]); }
+  if (type === "dandelion") { p.w *= 0.6; p.r = rnd(14, 20) * k; p.seedMax = 30; p.seeds = 30; p.seedAng = Array.from({ length: 30 }, (_, j) => [j / 30 * TAU + rnd(-0.08, 0.08), rnd(0.6, 1)]); }
+  const nl = type === "lavender" ? 4 : (rnd(2, 5) | 0);
+  for (let i = 0; i < nl; i++) p.leaves.push({ f: rnd(0.08, type === "lavender" ? 0.45 : 0.62), side: i % 2 ? 1 : -1, spread: rnd(0, 0.5),
+    len: (type === "lavender" ? rnd(12, 20) : rnd(15, 32)) * k, wid: (type === "lavender" ? rnd(2, 3) : rnd(4, 8)) * k, key: pick(["leaf", "leaf-deep", "leaf-light"]) });
+  return p;
+}
+function drawPlant(ctx, p) {
+  const g = ease(clamp(p.g, 0, 1));
+  if (g <= 0.001) return;
+  const pts = stemPts(p, p.h * g);
+  const n = pts.length - 1, tip = pts[n];
+  p.tip = tip;
+  ctx.globalAlpha = p.alpha;
+  ctx.fillStyle = C[p.stemKey];
+  if (p.type === "grass") { taper(ctx, pts, p.w, 0); ctx.globalAlpha = 1; return; }
+  taper(ctx, pts, p.w, p.w * 0.45);
+  for (const L of p.leaves) {
+    const q = pts[Math.round(L.f * n)], lg = clamp((g - L.f * 0.6) / 0.4, 0, 1);
+    if (lg <= 0) continue;
+    ctx.fillStyle = C[L.key];
+    leaf(ctx, q.x, q.y, q.a + L.side * (0.8 + L.spread) + p.bend * 0.04, L.len * lg, L.wid * lg);
+  }
+  const open = ease(clamp((p.g - 0.62) / 0.38, 0, 1));
+  const petal = C[p.petalKey];
+  switch (p.type) {
+    case "daisy": daisy(ctx, tip.x, tip.y, tip.a, p.r, open, petal, C.pollen); break;
+    case "poppy": poppy(ctx, tip.x, tip.y, tip.a, p.r, open, petal); break;
+    case "tulip": if (g > 0.5) tulip(ctx, tip.x, tip.y, tip.a, p.r, open, petal); break;
+    case "lavender": {
+      const start = Math.floor(n * 0.55);
+      for (let i = start; i <= n; i++) {
+        const q = pts[i], k = (i - start) / (n - start), s = (1 - k * 0.55) * p.r * open;
+        if (s < 0.4) continue;
+        const na = q.a + Math.PI / 2;
+        ctx.fillStyle = i % 2 ? petal : C["petal-a"];
+        ctx.globalAlpha = p.alpha * (i % 2 ? 1 : 0.55);
+        for (const sd of [-1, 1]) { ctx.beginPath(); ctx.ellipse(q.x + Math.cos(na) * s * 0.7 * sd, q.y + Math.sin(na) * s * 0.7 * sd, s, s * 0.62, q.a, 0, TAU); ctx.fill(); }
+      }
+      ctx.globalAlpha = p.alpha;
+      break;
+    }
+    case "foxglove": {
+      const start = Math.floor(n * 0.5);
+      for (let i = start; i < n; i++) {
+        const q = pts[i], k = (i - start) / (n - start), s = (1 - k * 0.6) * p.r * open;
+        if (s < 0.6) continue;
+        const sd = (i % 3 === 0) ? -p.side : p.side, na = q.a + Math.PI / 2 * sd;
+        ctx.save(); ctx.translate(q.x + Math.cos(na) * 2, q.y + Math.sin(na) * 2); ctx.rotate(q.a + sd * 2.25);
+        ctx.fillStyle = petal; ctx.beginPath(); ctx.ellipse(s * 0.75, 0, s * 0.85, s * 0.44, 0, 0, TAU); ctx.fill();
+        ctx.fillStyle = "rgba(0,0,0,.2)"; ctx.beginPath(); ctx.ellipse(s * 1.5, 0, s * 0.14, s * 0.36, 0, 0, TAU); ctx.fill();
+        ctx.fillStyle = "rgba(255,255,255,.55)"; ctx.beginPath(); ctx.arc(s * 1.05, s * 0.1, s * 0.07, 0, TAU); ctx.arc(s * 0.85, -s * 0.12, s * 0.06, 0, TAU); ctx.fill();
+        ctx.restore();
+      }
+      break;
+    }
+    case "dandelion": {
+      if (open <= 0) { ctx.fillStyle = C["leaf-deep"]; ctx.beginPath(); ctx.ellipse(tip.x, tip.y, 3.5, 6, tip.a + Math.PI / 2, 0, TAU); ctx.fill(); break; }
+      const R = p.r * open, cnt = Math.floor(p.seeds);
+      ctx.strokeStyle = petal; ctx.fillStyle = petal; ctx.lineWidth = 0.7;
+      for (let j = 0; j < cnt; j++) {
+        const [a, l] = p.seedAng[j], ex = tip.x + Math.cos(a) * R * l, ey = tip.y + Math.sin(a) * R * l;
+        ctx.globalAlpha = p.alpha * (0.45 + 0.5 * l);
+        ctx.beginPath(); ctx.moveTo(tip.x, tip.y); ctx.lineTo(ex, ey); ctx.stroke();
+        ctx.beginPath(); ctx.arc(ex, ey, 1.9, 0, TAU); ctx.fill();
+      }
+      ctx.globalAlpha = p.alpha; ctx.fillStyle = C["dry-2"]; ctx.beginPath(); ctx.arc(tip.x, tip.y, 2.6, 0, TAU); ctx.fill();
+      break;
+    }
+  }
+  if (p.tag) drawTag(ctx, p);
+  ctx.globalAlpha = 1;
+}
+function drawTag(ctx, p) {
+  const gx = p.x + p.tagSide * 18, gy = p.y + 2, a = ease(clamp(p.g * 1.6, 0, 1));
+  if (a <= 0) return;
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = C.soil; ctx.fillRect(gx - 1.5, gy - 48 * a, 3, 48 * a);
+  ctx.save(); ctx.translate(gx, gy - 48 * a); ctx.rotate(p.tagRot);
+  ctx.font = "700 18px Caveat, 'Bradley Hand', cursive";
+  const w = ctx.measureText(p.tag).width + 20;
+  ctx.fillStyle = C.tag; ctx.beginPath();
+  if (ctx.roundRect) ctx.roundRect(-w / 2, -24, w, 26, 4); else ctx.rect(-w / 2, -24, w, 26);
+  ctx.fill();
+  ctx.fillStyle = "rgba(0,0,0,.12)"; ctx.fillRect(-w / 2, -2, w, 2);
+  ctx.fillStyle = "#2B2016"; ctx.textAlign = "center"; ctx.textBaseline = "alphabetic"; ctx.fillText(p.tag, 0, -6);
+  ctx.restore();
+}
+
+/* ---------- garden engine ---------- */
+let glowSprite = null;
+function makeGlow() {
+  const c = document.createElement("canvas"); c.width = c.height = 64;
+  const x = c.getContext("2d"), gr = x.createRadialGradient(32, 32, 0, 32, 32, 32);
+  gr.addColorStop(0, C.pollen); gr.addColorStop(0.25, C.pollen + "88"); gr.addColorStop(1, "rgba(0,0,0,0)");
+  x.fillStyle = gr; x.fillRect(0, 0, 64, 64); glowSprite = c;
+}
+makeGlow(); themeListeners.push(makeGlow);
+
+class Garden {
+  constructor(opt) {
+    Object.assign(this, { back: null, front: null, host: null, kind: "hero", t: 0, wind: 0, gust: 0, gustT: 0,
+      plants: [], fronts: [], parts: [], visible: true, w: 0, h: 0, lastW: 0, planted: 0 }, opt);
+    this.bctx = this.back.getContext("2d");
+    this.fctx = this.front ? this.front.getContext("2d") : null;
+    this.m = { x: -9999, y: -9999, vx: 0, vy: 0, px: null, py: null };
+    new ResizeObserver(() => this.resize()).observe(this.host);
+    new IntersectionObserver(es => { this.visible = es[0].isIntersecting; }).observe(this.host);
+    const mv = e => {
+      const r = this.back.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      if (this.m.px !== null) { this.m.vx = x - this.m.px; this.m.vy = y - this.m.py; }
+      this.m.x = x; this.m.y = y; this.m.px = x; this.m.py = y;
+    };
+    this.host.addEventListener("pointermove", mv);
+    this.host.addEventListener("pointerleave", () => { this.m.x = this.m.y = -9999; this.m.px = null; });
+    themeListeners.push(() => this.ambient());
+    this.resize();
+  }
+  resize() {
+    const w = this.host.clientWidth, h = this.host.clientHeight, d = DPR();
+    if (!w || !h) return;
+    this.w = w; this.h = h;
+    for (const c of [this.back, this.front]) if (c) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.getContext("2d").setTransform(d, 0, 0, d, 0, 0); }
+    if (Math.abs(w - this.lastW) > 60 || Math.abs(h - (this.lastH || h)) > 90) { this.lastW = w; this.lastH = h; this.measureText(); this.populate(); this.ambient(); }
+    this.lastH = this.lastH || h;
+    if (reduce) this.frame(0);
+  }
+  // Where the text is, measured from the page: plants under it stop below the buttons; tall ones live beside it
+  measureText() {
+    const copy = this.host.querySelector(".hero-copy");
+    if (!copy) { this.textBottom = 0; this.textRight = 0; return; }
+    const hr = this.host.getBoundingClientRect();
+    let right = 0, bottom = 0;
+    copy.querySelectorAll(".eyebrow,h1 .ch,.hero-lede,.cta a").forEach(el => {
+      const r = el.getBoundingClientRect(); right = Math.max(right, r.right - hr.left); bottom = Math.max(bottom, r.bottom - hr.top);
+    });
+    this.textRight = right; this.textBottom = bottom;
+  }
+  zoneMax(x) {
+    const W = this.w, H = this.h;
+    if (this.kind === "bed") return H * 0.62;
+    const under = clamp(H - this.textBottom - 36, 50, 240);
+    if (W < 700) return under;
+    const edge = this.textRight + 40, ramp = W * 0.14;
+    if (x < edge) return under;
+    const tall = Math.max(under, H * 0.74);
+    if (x < edge + ramp) return lerp(under, H * 0.55, (x - edge) / ramp);
+    return lerp(Math.max(under, H * 0.55), tall, clamp((x - edge - ramp) / Math.max(1, W - edge - ramp), 0, 1));
+  }
+  populate() {
+    const W = this.w, bed = this.kind === "bed", keep = this.plants.filter(p => p.tag || p.userPlanted);
+    this.plants = []; this.fronts = [];
+    const nBack = Math.round(W / (bed ? 16 : W < 700 ? 13 : 9.5));
+    for (let i = 0; i < nBack; i++) {
+      const x = rnd(-20, W + 20), z = Math.random(), grass = Math.random() < (bed ? 0.7 : 0.42);
+      const mh = this.zoneMax(x) * (0.55 + 0.45 * z);
+      const p = makePlant(x, 4 + (1 - z) * (bed ? 14 : 30), grass ? "grass" : pick(BLOOMS), grass ? mh * 0.5 : mh, z);
+      p.delay = reduce ? 0 : rnd(0, 1.5) + (grass ? 0 : 0.35);
+      if (reduce) p.g = 1;
+      this.plants.push(p);
+    }
+    for (const p of keep) { p.x = clamp(p.x, 10, W - 10); this.plants.push(p); }
+    this.plants.sort((a, b) => a.z - b.z);
+    const nFront = Math.round(W / (bed ? 7 : 5));
+    for (let i = 0; i < nFront; i++) {
+      const x = rnd(-10, W + 10), smallFlower = !bed && Math.random() < 0.05;
+      const p = makePlant(x, -4, smallFlower ? pick(["daisy", "poppy"]) : "grass", smallFlower ? rnd(40, 80) : (W < 700 ? rnd(18, 46) : rnd(20, 64)), 1.1);
+      p.stemKey = smallFlower ? "leaf-deep" : pick(["leaf-deep", "leaf-deep", "leaf"]);
+      p.delay = reduce ? 0 : rnd(0, 0.8); if (reduce) p.g = 1;
+      (this.front ? this.fronts : this.plants).push(p);
+    }
+  }
+  ambient() {
+    this.parts = this.parts.filter(p => p.kind !== "amb");
+    const n = this.kind === "bed" ? 10 : (C.night ? 36 : 28);
+    for (let i = 0; i < n; i++) this.parts.push({ kind: "amb", x: rnd(0, this.w), y: rnd(this.h * 0.15, this.h), ph: rnd(0, TAU), s: rnd(0.6, 1.4) });
+  }
+  plantAt(x, opts = {}) {
+    const z = rnd(0.8, 1), type = opts.type || pick(["daisy", "poppy", "tulip", "foxglove", "lavender", "dandelion", "poppy"]);
+    const maxH = opts.maxH || this.zoneMax(x) * rnd(0.75, 1.15);
+    const p = makePlant(x, 4, type, maxH, z);
+    p.h = Math.max(p.h, maxH * 0.8); p.speed = reduce ? 10 : 0.75; p.userPlanted = true;
+    if (opts.tag) { p.tag = opts.tag; p.tagSide = pick([-1, 1]); p.tagRot = rnd(-0.08, 0.08); }
+    this.plants.push(p); this.plants.sort((a, b) => a.z - b.z);
+    this.planted++;
+    const own = this.plants.filter(q => q.userPlanted && !q.tag);
+    if (own.length > 50) this.plants.splice(this.plants.indexOf(own[0]), 1);
+    for (let i = 0; i < 16; i++) this.parts.push({ kind: "soil", x, y: this.h - 6, vx: rnd(-90, 90), vy: rnd(-260, -90), life: 1 });
+    return p;
+  }
+  release(p, count) {
+    const c = Math.min(count, Math.floor(p.seeds));
+    for (let i = 0; i < c; i++) {
+      p.seeds -= 1;
+      const [a, l] = p.seedAng[Math.floor(p.seeds)] || [rnd(0, TAU), 1];
+      this.parts.push({ kind: "seed", x: p.tip.x + Math.cos(a) * p.r * l, y: p.tip.y + Math.sin(a) * p.r * l, vx: rnd(-20, 20) + this.m.vx * 3, vy: rnd(-40, -10), ph: rnd(0, TAU), life: 1 });
+    }
+    p.regrow = 0;
+  }
+  step(dt) {
+    this.t += dt;
+    const t = this.t, m = this.m;
+    if (Math.random() < dt * 0.1) this.gustT = rnd(0.35, 1) * pick([-1, 1]);
+    this.gustT *= Math.pow(0.4, dt); this.gust = lerp(this.gust, this.gustT, dt * 1.5);
+    this.wind = (Math.sin(t * 0.5) * 0.28 + Math.sin(t * 1.7 + 1.3) * 0.12 + this.gust) * (reduce ? 0.25 : 1);
+    const speed = Math.abs(m.vx) + Math.abs(m.vy);
+    const all = this.fronts.length ? this.plants.concat(this.fronts) : this.plants;
+    for (const p of all) {
+      p.y = this.h - p.yb;
+      if (p.delay > 0) p.delay -= dt; else if (p.g < 1) p.g = Math.min(1, p.g + dt * p.speed);
+      // Wind: slow sway plus a faint, per-plant flutter so neighbours never move in lockstep
+      const grass = p.type === "grass";
+      let target = this.wind * (0.6 + 0.4 * Math.sin(t * 0.9 + p.x * 0.011 + p.phase * 0.3)) * p.flex * (grass ? 1.3 : 1)
+        + Math.sin(t * (grass ? 2.1 : 1.4) + p.phase) * 0.06 * p.flex;
+      // Hand brushing through: a soft, eased lean away from the cursor (smoothstep falloff, no hard edge)
+      const tipY = p.tip ? p.tip.y : p.y - p.h, dx = p.x - m.x;
+      let push = 0;
+      if (Math.abs(dx) < 170 && m.y > tipY - 90 && m.y < p.y + 30) {
+        const k = 1 - Math.abs(dx) / 170, s = k * k * (3 - 2 * k);
+        const vy = m.y < tipY ? clamp((m.y - (tipY - 90)) / 90, 0, 1) : 1;
+        push = Math.sign(dx || 1) * s * vy * 1.5 + clamp(m.vx, -30, 30) * 0.012 * s * vy;
+      }
+      p.push = lerp(p.push || 0, push, 1 - Math.exp(-dt * (Math.abs(push) > Math.abs(p.push || 0) ? 5 : 1.6)));
+      target += p.push;
+      // Damped spring in real time: heavy, slightly under-damped, like a stem settling
+      const w = (grass ? 4.2 : 2.8) * p.stiff, zeta = grass ? 0.55 : 0.72;
+      p.bv += (w * w * (target - p.bend) - 2 * zeta * w * p.bv) * dt;
+      p.bend += p.bv * dt;
+      if (p.type === "dandelion" && p.tip && p.g > 0.9) {
+        if (speed > 7 && p.seeds >= 1 && Math.hypot(m.x - p.tip.x, m.y - p.tip.y) < 70) this.release(p, 3);
+        p.regrow = (p.regrow || 0) + dt;
+        if (p.regrow > 5 && p.seeds < p.seedMax) p.seeds = Math.min(p.seedMax, p.seeds + dt * 3);
+      }
+    }
+    const md = Math.exp(-dt * 8); m.vx *= md; m.vy *= md;
+    const W = this.w, H = this.h;
+    for (let i = this.parts.length - 1; i >= 0; i--) {
+      const q = this.parts[i];
+      if (q.kind === "amb") {
+        if (C.night) { q.x += (Math.cos(t * 0.6 + q.ph) * 16 + this.wind * 10) * dt; q.y += Math.sin(t * 0.9 + q.ph * 1.3) * 12 * dt; }
+        else { q.x += (this.wind * 16 + Math.sin(t + q.ph) * 6) * dt; q.y -= (7 + Math.sin(t * 0.7 + q.ph) * 4) * dt; }
+        if (q.x < -20) q.x = W + 10; if (q.x > W + 20) q.x = -10; if (q.y < -10) q.y = H; if (q.y > H + 10) q.y = H * 0.2;
+      } else if (q.kind === "seed") {
+        q.vx += (this.wind * 50 - q.vx) * dt * 0.8; q.vy += (-18 + Math.sin(t * 2 + q.ph) * 14 - q.vy) * dt;
+        q.x += q.vx * dt; q.y += q.vy * dt; q.life -= dt * 0.1;
+        if (q.life <= 0 || q.y < -30 || q.x < -40 || q.x > W + 40) this.parts.splice(i, 1);
+      } else if (q.kind === "soil") {
+        q.vy += 700 * dt; q.x += q.vx * dt; q.y += q.vy * dt; q.life -= dt * 1.4;
+        if (q.life <= 0 || q.y > H + 10) this.parts.splice(i, 1);
+      }
+    }
+  }
+  frame(dt) {
+    if (dt) this.step(dt); else this.step(0.0001);
+    const b = this.bctx, W = this.w, H = this.h, t = this.t;
+    b.clearRect(0, 0, W, H);
+    for (const p of this.plants) drawPlant(b, p);
+    const pc = this.fctx || b;
+    if (this.fctx) { pc.clearRect(0, 0, W, H); for (const p of this.fronts) drawPlant(pc, p); }
+    for (const q of this.parts) {
+      if (q.kind === "amb") {
+        if (C.night) {
+          const bl = Math.pow(0.5 + 0.5 * Math.sin(t * 2.1 + q.ph * 3), 3);
+          b.globalAlpha = 0.25 + 0.75 * bl; const s = 26 * q.s;
+          b.drawImage(glowSprite, q.x - s / 2, q.y - s / 2, s, s);
+          b.fillStyle = C.pollen; b.beginPath(); b.arc(q.x, q.y, 1.4 * q.s, 0, TAU); b.fill();
+        } else {
+          b.globalAlpha = 0.55; b.fillStyle = C.pollen; b.beginPath(); b.arc(q.x, q.y, 1.5 * q.s, 0, TAU); b.fill();
+        }
+      } else if (q.kind === "seed") {
+        b.globalAlpha = clamp(q.life * 1.5, 0, 0.9); b.strokeStyle = C["petal-c"]; b.fillStyle = C["petal-c"]; b.lineWidth = 0.8;
+        b.beginPath(); b.moveTo(q.x, q.y); b.lineTo(q.x, q.y + 7); b.stroke();
+        for (let k = 0; k < 6; k++) { const a = -Math.PI / 2 + (k - 2.5) * 0.35; b.beginPath(); b.moveTo(q.x, q.y); b.lineTo(q.x + Math.cos(a) * 5, q.y + Math.sin(a) * 5); b.stroke(); }
+      } else if (q.kind === "soil") {
+        pc.globalAlpha = clamp(q.life, 0, 1); pc.fillStyle = C.soil; pc.fillRect(q.x, q.y, 3, 3);
+      }
+    }
+    b.globalAlpha = 1; pc.globalAlpha = 1;
+  }
+}
+
+/* ---------- hero ---------- */
+const hero = $("#top");
+const heroG = new Garden({ back: $("#gardenBack"), front: $("#gardenFront"), host: hero, kind: "hero" });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { const b = heroG.textBottom, r = heroG.textRight; heroG.measureText(); if (Math.abs(b - heroG.textBottom) > 20 || Math.abs(r - heroG.textRight) > 30) heroG.populate(); });
+// A small label follows the cursor over the flowers until the visitor plants one
+const tip = $("#cursorTip");
+let tipDone = false, tipShown = 0;
+try { tipDone = localStorage.getItem("garden-tip-done") === "1"; } catch (e) {}
+function endTip() { tipDone = true; tip.classList.remove("on"); try { localStorage.setItem("garden-tip-done", "1"); } catch (e) {} }
+hero.addEventListener("pointermove", e => {
+  if (tipDone || e.pointerType !== "mouse") return;
+  const r = hero.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+  const over = y > r.height * 0.5 && !e.target.closest("a,button");
+  tip.classList.toggle("on", over);
+  tip.style.transform = `translate(${x + 18}px, ${y + 14}px)`;
+  if (over && !tipShown) tipShown = setTimeout(endTip, 5000);
+});
+hero.addEventListener("pointerleave", () => tip.classList.remove("on"));
+hero.addEventListener("pointerdown", e => {
+  if (!e.target.closest("a,button")) endTip();
+  if (e.target.closest("a,button")) return;
+  const r = hero.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+  heroG.plantAt(x);
+  for (const p of heroG.plants) if (p.type === "dandelion" && p.tip && Math.hypot(p.tip.x - x, p.tip.y - y) < 90) heroG.release(p, 40);
+});
+// Letters sway with the same wind as the flowers
+const nameEl = $("#heroName");
+let li = 0;
+nameEl.querySelectorAll(".line").forEach(line => {
+  line.innerHTML = [...line.textContent].map(ch => `<span class="ch" style="--i:${li++};--k:${rnd(0.5, 1.3).toFixed(2)}">${ch}</span>`).join("");
+});
+
+/* ---------- ticker ---------- */
+const bloomSVG = c => `<svg viewBox="0 0 28 28" aria-hidden="true"><g fill="var(${c})">${[0,60,120,180,240,300].map(a => `<ellipse cx="14" cy="7" rx="3.6" ry="6.5" transform="rotate(${a} 14 14)"/>`).join("")}</g><circle cx="14" cy="14" r="3.6" fill="var(--pollen)"/></svg>`;
+const words = ["React", "TypeScript", "UI/UX design", "Motion design", "Canvas & WebGL", "Design systems", "Accessibility", "Node & Express"];
+const cols = ["--petal-a", "--petal-b", "--petal-d", "--leaf"];
+const once = words.map((w, i) => `<span>${w}${bloomSVG(cols[i % 4])}</span>`).join("");
+
+
+/* ---------- garden walk: scroll-driven skills ---------- */
+const SKILLS = [
+  { name: "HTML & CSS", latin: "The building blocks of every website", fam: "Basics", lvl: 4, flower: "dandelion", c: "--petal-d",
+    desc: "The base of every website. Clean page structure and modern layouts that work on every screen.",
+    tools: ["Clean HTML", "CSS Grid", "Flexbox", "CSS variables", "Works on every screen"] },
+  { name: "TypeScript", latin: "JavaScript with fewer mistakes", fam: "Coding", lvl: 3, flower: "cosmos", c: "--petal-e",
+    desc: "Modern JavaScript with types, so the code stays easy to read and has fewer bugs.",
+    tools: ["Modern JavaScript", "TypeScript", "Loading data", "Browser features"] },
+  { name: "React", latin: "Building pages from reusable pieces", fam: "Front-end", lvl: 3, flower: "dahlia", c: "--petal-a",
+    desc: "I build pages from small, reusable pieces that keep the data and the screen in sync.",
+    tools: ["Hooks", "Context", "React Router", "Vite"] },
+  { name: "Motion", latin: "Movement with a purpose", fam: "Animation", lvl: 3, flower: "poppy", c: "--petal-d",
+    desc: "Animation that shows people what just happened. Everything that moves on this page is made by hand.",
+    tools: ["Framer Motion", "Lottie", "CSS animation", "3D (WebGL)"] },
+  { name: "UI/UX Design", latin: "Designing for real people", fam: "Design", lvl: 3, flower: "anemone", c: "--petal-b",
+    desc: "I plan how people will move through a product, then test it with real users before it's built.",
+    tools: ["Figma", "User journeys", "Sketches and wireframes", "Clickable prototypes", "Testing with users"] },
+  { name: "Design Systems", latin: "Keeping every page consistent", fam: "Design", lvl: 2, flower: "rose", c: "--petal-a",
+    desc: "Shared colours, fonts and parts that keep a product looking the same as it grows.",
+    tools: ["Shared colours and fonts", "Light and dark themes", "Reusable parts", "Clear guides"] },
+  { name: "Node & Express", latin: "The code behind the scenes", fam: "Back-end", lvl: 3, flower: "daisy", c: "--leaf",
+    desc: "The back-end that powers a website: safe, reliable and easy to build on.",
+    tools: ["APIs", "Secure logins", "File uploads", "Server logic"] },
+  { name: "Data & AI", latin: "Storing data and adding smart features", fam: "Back-end", lvl: 2, flower: "sunflower", c: "--petal-b",
+    desc: "Saving and finding data, and adding AI features that make apps smarter.",
+    tools: ["PostgreSQL", "SQLite", "Firebase", "Reading text from images", "AI chat models"] }
+];
+const STAGES = ["Just planted", "Growing", "In bloom", "Fully grown"];
+const leafIcon = on => `<svg viewBox="0 0 12 12" aria-hidden="true"><path class="${on ? "on" : "off"}" d="M2 10C2 5 5 2 10 2c0 5-3 8-8 8Z"/></svg>`;
+// Each skill has a butterfly resting on its flower
+const SPECIES = [
+  { name: "Cabbage White", base: ["#FFFFFF", "#E9E6DA"], edge: "#3A3A3A", kind: "white" },
+  { name: "Blue Morpho", base: ["#6FD8FF", "#1466D6"], edge: "#0E1118", kind: "morpho" },
+  { name: "Rose Swallowtail", base: ["#2A1A22", "#140C10"], edge: "#0C0709", kind: "rose" },
+  { name: "Monarch", base: ["#FFB347", "#DD5E0C"], edge: "#15100C", kind: "monarch" },
+  { name: "Purple Emperor", base: ["#B98FFF", "#5428B4"], edge: "#15101E", kind: "emperor" },
+  { name: "Red Admiral", base: ["#3A2A2A", "#1B1414"], edge: "#0E0B0B", kind: "admiral" },
+  { name: "Emerald Swallowtail", base: ["#1E3A2C", "#0E1C15"], edge: "#0A120E", kind: "emerald" },
+  { name: "Brimstone", base: ["#FFF27A", "#EFC21A"], edge: "#7A6512", kind: "brimstone" }
+];
+const FLOWER_NAME = { sunflower: "sunflower", cosmos: "cosmos", dahlia: "dahlia", poppy: "poppy", anemone: "anemone", rose: "rose", daisy: "daisy", dandelion: "dandelion" };
+// One wing (fore and hind), hinge on the left edge, head toward the top
+function drawWing(sp) {
+  const c = document.createElement("canvas"); c.width = c.height = 256;
+  const x = c.getContext("2d"), tail = sp.kind === "rose" || sp.kind === "emerald";
+  const fw = new Path2D(); fw.moveTo(4, 30); fw.bezierCurveTo(90, 2, 205, 0, 250, 26); fw.bezierCurveTo(244, 78, 205, 118, 128, 128); fw.lineTo(4, 120); fw.closePath();
+  const hw = new Path2D(); hw.moveTo(4, 116); hw.bezierCurveTo(120, 112, 196, 146, 184, 200);
+  if (tail) { hw.bezierCurveTo(172, 214, 150, 214, 142, 222); hw.lineTo(150, 252); hw.lineTo(128, 250); hw.lineTo(118, 228); } else hw.bezierCurveTo(168, 240, 86, 250, 44, 232);
+  hw.bezierCurveTo(20, 220, 6, 190, 4, 150); hw.closePath();
+  const all = new Path2D(); all.addPath(fw); all.addPath(hw);
+  for (const p of [hw, fw]) { const g = x.createRadialGradient(6, 128, 6, 6, 128, 250); g.addColorStop(0, sp.base[1]); g.addColorStop(1, sp.base[0]); x.fillStyle = g; x.fill(p); }
+  x.save(); x.clip(all);
+  const dots = (rows, col, r) => { x.fillStyle = col; rows.forEach(([x0, y0, x1, y1, n]) => { for (let k = 0; k <= n; k++) { const t = k / n; x.beginPath(); x.arc(x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, r, 0, 7); x.fill(); } }); };
+  const veins = (col, w) => { x.strokeStyle = col; x.lineWidth = w; for (let k = 0; k < 7; k++) { x.beginPath(); x.moveTo(6, 44 + k * 26); x.quadraticCurveTo(96, 44 + k * 28, 168 + k * 10, 10 + k * 34); x.stroke(); } };
+  const border = (col, w) => { x.strokeStyle = col; x.lineWidth = w; x.stroke(fw); x.stroke(hw); };
+  switch (sp.kind) {
+    case "white":
+      veins("rgba(120,120,110,.35)", 1.5);
+      x.fillStyle = "#3A3A38"; x.beginPath(); x.ellipse(238, 28, 44, 30, -0.3, 0, 7); x.fill();
+      x.beginPath(); x.arc(150, 84, 10, 0, 7); x.fill(); x.beginPath(); x.arc(120, 150, 6, 0, 7); x.fill();
+      border("rgba(60,60,55,.5)", 3); break;
+    case "morpho":
+      veins("rgba(10,20,40,.55)", 2.5); border(sp.edge, 30);
+      dots([[30, 14, 238, 22, 13], [242, 40, 214, 110, 5], [182, 206, 60, 240, 8]], "#E8F6FF", 3); break;
+    case "monarch":
+      veins(sp.edge, 5); border(sp.edge, 26);
+      dots([[30, 12, 236, 20, 14], [240, 44, 210, 112, 5], [184, 204, 56, 238, 9]], "#FFFFFF", 3); dots([[200, 36, 222, 60, 2]], "#FFE3B8", 4); break;
+    case "rose":
+      veins("rgba(255,255,255,.25)", 2);
+      x.fillStyle = "#FF6FA8"; for (const [px, py] of [[120, 170], [150, 196], [96, 196], [130, 220]]) { x.beginPath(); x.ellipse(px, py, 16, 11, 0.5, 0, 7); x.fill(); }
+      x.fillStyle = "rgba(255,255,255,.55)"; x.beginPath(); x.ellipse(118, 72, 60, 16, -0.2, 0, 7); x.fill();
+      border(sp.edge, 8); break;
+    case "emperor":
+      veins("rgba(20,10,40,.4)", 2);
+      x.strokeStyle = "rgba(255,255,255,.9)"; x.lineWidth = 16; x.beginPath(); x.moveTo(40, 150); x.quadraticCurveTo(120, 110, 170, 56); x.stroke(); x.beginPath(); x.moveTo(30, 190); x.quadraticCurveTo(100, 176, 150, 200); x.stroke();
+      border(sp.edge, 20); dots([[214, 40, 226, 64, 2]], "#FFFFFF", 4); break;
+    case "admiral":
+      x.strokeStyle = "#F0502A"; x.lineWidth = 24; x.beginPath(); x.moveTo(96, 118); x.quadraticCurveTo(160, 90, 214, 46); x.stroke();
+      x.lineWidth = 14; x.beginPath(); x.moveTo(40, 226); x.quadraticCurveTo(120, 238, 176, 196); x.stroke();
+      dots([[206, 24, 240, 40, 3], [180, 60, 196, 72, 1]], "#FFFFFF", 6); border(sp.edge, 6); break;
+    case "emerald":
+      x.strokeStyle = "#3DF0A0"; x.lineWidth = 22; x.beginPath(); x.moveTo(30, 128); x.quadraticCurveTo(120, 96, 200, 40); x.stroke(); x.beginPath(); x.moveTo(24, 150); x.quadraticCurveTo(100, 150, 164, 190); x.stroke();
+      x.fillStyle = "rgba(61,240,160,.3)"; x.fill(all); border(sp.edge, 8); break;
+    case "brimstone":
+      veins("rgba(140,110,20,.3)", 1.5);
+      x.fillStyle = "#F08A18"; x.beginPath(); x.arc(150, 80, 8, 0, 7); x.fill(); x.beginPath(); x.arc(110, 170, 7, 0, 7); x.fill();
+      border(sp.edge, 3); break;
+  }
+  x.restore();
+  return c;
+}
+const WINGS = SPECIES.map(sp => drawWing(sp));
+const WING_URLS = WINGS.map(c => c.toDataURL("image/png"));
+$("#walkPanels").innerHTML = SKILLS.map((s, i) => `
+  <article class="wp fg" data-side="${i % 2 ? "right" : "left"}" style="--c:var(${s.c})">
+    <div class="fg-fly" aria-hidden="true"><div class="fg-bf"><img class="fg-w r" src="${WING_URLS[i]}" alt=""><img class="fg-w l" src="${WING_URLS[i]}" alt=""><i class="fg-body"></i></div><span class="fg-shadow"></span></div>
+    <span class="mono wp-idx"><b>${String(i + 1).padStart(2, "0")}</b> / ${String(SKILLS.length).padStart(2, "0")} · ${SPECIES[i].name}</span>
+    <h3>${s.name}</h3>
+    <p class="wp-latin">${s.latin}</p>
+    <p class="wp-desc">${s.desc}</p>
+    <ul class="chips">${s.tools.map(t => `<li>${t}</li>`).join("")}</ul>
+    <div class="wp-growth mono"><span>${s.fam}</span><span class="growth" aria-label="${STAGES[s.lvl - 1]}, ${s.lvl} of 4">${[1, 2, 3, 4].map(n => leafIcon(n <= s.lvl)).join("")}&nbsp;${STAGES[s.lvl - 1]}</span></div>
+  </article>`).join("");
+$("#walkRail").innerHTML = SKILLS.map(s => `<li><button type="button"><span>${s.name}</span><i></i></button></li>`).join("");
+
+class Walk {
+  constructor() {
+    this.sec = $("#skills"); this.stage = $("#walkStage");
+    this.N = SKILLS.length; this.span = this.N + 1.3;
+    this.P = 0; this.tP = 0; this.visible = false; this.active = -1; this.seen = -1; this.skipped = false;
+    this.panels = [...document.querySelectorAll(".wp")]; this.rail = [...document.querySelectorAll("#walkRail button")];
+    this.intro = $("#walkIntro"); this.bar = $("#walkBar");
+    new IntersectionObserver(es => { this.visible = es[0].isIntersecting; }).observe(this.sec);
+    this.rail.forEach((b, i) => b.addEventListener("click", () => this.goTo(i)));
+    addEventListener("scroll", () => this.measure(), { passive: true });
+    addEventListener("resize", () => this.resize());
+    this.resize();
+  }
+  resize() {
+    const H = this.stage.clientHeight || innerHeight, secH = Math.round(H * 0.9 * this.span + H);
+    if (this.secH !== secH) { this.secH = secH; this.sec.style.height = secH + "px"; }
+    this.measure(); this.P = this.tP; this.ui();
+  }
+  measure() {
+    const r = this.sec.getBoundingClientRect(), vh = this.stage.clientHeight || innerHeight, range = this.sec.offsetHeight - vh;
+    this.tP = clamp(-r.top / Math.max(1, range), 0, 1) * this.span;
+    // Hold at the next butterfly until its card has opened, so a fast scroll never skips one.
+    // Scrolling back up is always free; the skip button and in-page links turn the hold off.
+    // a skip stays on while the page travels down; it resets once you scroll back up above the garden
+    const goingUp = scrollY < (this.lastY ?? scrollY); this.lastY = scrollY;
+    if (goingUp && r.top > innerHeight * 0.6) this.skipped = false;
+    const cap = this.fallback || this.skipped || this.seen >= this.N - 1 ? Infinity : this.seen + 1.9;
+    if (r.top <= 1 && r.bottom >= vh - 1 && this.tP > cap + 0.01) {
+      this.tP = cap;
+      scrollTo({ top: r.top + scrollY + (cap / this.span) * range, behavior: "instant" });
+    }
+    if (reduce || !this.visible) this.P = this.tP;
+  }
+  markSeen(i) { if (i > this.seen) this.seen = i; }
+  goTo(i) {
+    this.seen = Math.max(this.seen, i - 1);
+    const top = this.sec.getBoundingClientRect().top + scrollY, range = this.sec.offsetHeight - this.stage.clientHeight;
+    scrollTo({ top: top + ((i + 0.9) / this.span) * range, behavior: reduce ? "auto" : "smooth" });
+  }
+  // Jump to a spot on the page without travelling through the garden: leap to just short of it, then glide in
+  jumpTo(el) {
+    this.skipped = true;
+    const to = el.getBoundingClientRect().top + scrollY, from = scrollY;
+    const secTop = this.sec.getBoundingClientRect().top + scrollY, secEnd = secTop + this.sec.offsetHeight;
+    const crosses = Math.min(from, to) < secEnd - innerHeight && Math.max(from, to) > secTop;
+    if (crosses && !reduce) {
+      scrollTo({ top: to + (to > from ? -260 : 260), behavior: "instant" });
+      requestAnimationFrame(() => scrollTo({ top: to, behavior: "smooth" }));
+    } else scrollTo({ top: to, behavior: reduce ? "instant" : "smooth" });
+  }
+  skip() { this.jumpTo(this.sec.nextElementSibling); }
+  frame(dt) { this.P = lerp(this.P, this.tP, 1 - Math.exp(-dt * (reduce ? 60 : 5))); this.ui(); }
+  ui() {
+    const P = this.P, iv = clamp(1 - P * 2.4, 0, 1);
+    this.intro.style.opacity = iv; this.intro.style.visibility = iv > 0.01 ? "visible" : "hidden";
+    this.intro.style.transform = `translateY(${(-P * 90).toFixed(1)}px)`;
+    if (this.fallback) this.panels.forEach((el, i) => el.classList.toggle("open", Math.abs(P - (i + 0.9)) < 0.45));
+    const a = P < 0.45 ? -1 : clamp(Math.round(P - 0.9), 0, this.N - 1);
+    if (a !== this.active) { this.active = a; this.rail.forEach((b, i) => b.setAttribute("aria-current", i === a ? "true" : "false")); }
+    this.bar.style.transform = `scaleX(${(P / this.span).toFixed(4)})`;
+  }
+}
+const walk = new Walk();
+$("#walkSkip").addEventListener("click", () => walk.skip());
+document.addEventListener("click", e => {
+  const a = e.target.closest('a[href^="#"]'), id = a && a.getAttribute("href");
+  if (!id || id === "#" || id === "#skills") return;
+  const target = document.querySelector(id);
+  if (!target) return;
+  e.preventDefault();
+  walk.jumpTo(target);
+});
+
+/* ---------- the 3D garden (WebGL) ---------- */
+function createWorld() {
+  const T = window.THREE, cv = $("#world");
+  if (!T) return null;
+  let renderer;
+  try { renderer = new T.WebGLRenderer({ canvas: cv, antialias: true, powerPreference: "high-performance" }); } catch (e) { return null; }
+  const small = Math.min(innerWidth, innerHeight) < 700 || matchMedia("(pointer: coarse)").matches;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1.5 : 1.75));
+  const scene = new T.Scene(), camera = new T.PerspectiveCamera(50, 1, 0.05, 460);
+  const R = mulberry(2026), rr = (a, b) => a + R() * (b - a), rp = a => a[(R() * a.length) | 0];
+  const time = { value: 0 }, windU = { value: 0 };
+  const N = SKILLS.length, D = 6, NEAR = 1.9, Z0 = 4, ZEND = -88;
+  const pathX = z => Math.sin(z * 0.13) * 0.3 + Math.sin(z * 0.047) * 0.35;
+  const FOG = { near: 6, far: 88 };
+  scene.fog = new T.Fog(0xffffff, FOG.near, FOG.far);
+
+  /* geometry helpers */
+  function paint(g, c0, c1) {
+    g.computeBoundingBox();
+    const bb = g.boundingBox, p = g.attributes.position, a = new Float32Array(p.count * 3), A = new T.Color(c0), B = new T.Color(c1 || c0), c = new T.Color();
+    const hgt = (bb.max.y - bb.min.y) || 1;
+    for (let i = 0; i < p.count; i++) { c.copy(A).lerp(B, (p.getY(i) - bb.min.y) / hgt); a[i * 3] = c.r; a[i * 3 + 1] = c.g; a[i * 3 + 2] = c.b; }
+    g.setAttribute("color", new T.BufferAttribute(a, 3));
+    return g;
+  }
+  function merge(list) {
+    const gs = list.map(g => { const n = g.index ? g.toNonIndexed() : g; if (!n.attributes.normal) n.computeVertexNormals(); return n; });
+    const total = gs.reduce((s, g) => s + g.attributes.position.array.length, 0);
+    const P = new Float32Array(total), Nn = new Float32Array(total), Cc = new Float32Array(total);
+    let o = 0;
+    for (const g of gs) { P.set(g.attributes.position.array, o); Nn.set(g.attributes.normal.array, o); Cc.set(g.attributes.color.array, o); o += g.attributes.position.array.length; }
+    const m = new T.BufferGeometry();
+    m.setAttribute("position", new T.BufferAttribute(P, 3)); m.setAttribute("normal", new T.BufferAttribute(Nn, 3)); m.setAttribute("color", new T.BufferAttribute(Cc, 3));
+    return m;
+  }
+  // A petal or leaf: a curved, cupped surface with a colour gradient from base to tip
+  function bladeGeo(o) {
+    const { len, wid, shape = "point", cup = 0.3, curl = 0, crinkle = 0, segL = 8, segW = 4, c0, c1, gp = 0.8, fold = 0, base = 0 } = o;
+    const pos = [], col = [], idx = [], A = new T.Color(c0), B = new T.Color(c1), c = new T.Color();
+    for (let j = 0; j <= segL; j++) {
+      const v = j / segL;
+      let w = shape === "round" ? Math.pow(Math.max(0, Math.sin(Math.PI * Math.pow(v, 1.6))), 0.6) : Math.pow(Math.max(0, Math.sin(Math.PI * v)), 0.85) * (1 - v * 0.2);
+      if (j === 0) w = shape === "round" ? 0.18 : 0.12;
+      for (let i = 0; i <= segW; i++) {
+        const u = i / segW * 2 - 1;
+        let y = v * len;
+        if (o.tooth) y *= 1 - 0.07 * Math.pow(v, 6) * (1 - Math.cos(u * Math.PI * 3));
+        let z = cup * u * u * wid * 0.5 * w + curl * v * v * len + fold * Math.abs(u) * wid * 0.3 * w;
+        if (crinkle) z += crinkle * Math.sin(u * 7 + v * 11) * wid * 0.05 * v;
+        pos.push(u * wid * 0.5 * w, y + base, z);
+        c.copy(A).lerp(B, Math.pow(v, gp));
+        const e = 1 - 0.14 * u * u;
+        col.push(c.r * e, c.g * e, c.b * e);
+      }
+    }
+    const row = segW + 1;
+    for (let j = 0; j < segL; j++) for (let i = 0; i < segW; i++) { const a = j * row + i, b = a + 1, d = a + row, e = d + 1; idx.push(a, d, b, b, d, e); }
+    const g = new T.BufferGeometry();
+    g.setAttribute("position", new T.Float32BufferAttribute(pos, 3)); g.setAttribute("color", new T.Float32BufferAttribute(col, 3));
+    g.setIndex(idx); g.computeVertexNormals();
+    return g;
+  }
+  // Wind in world space, so every plant leans the same way in a gust
+  function windMat(h, extra) {
+    const m = new T.MeshStandardMaterial(Object.assign({ vertexColors: true, roughness: 0.7, side: T.DoubleSide }, extra || {}));
+    m.onBeforeCompile = sh => {
+      sh.uniforms.uTime = time; sh.uniforms.uWind = windU; sh.uniforms.uH = { value: h };
+      sh.vertexShader = "uniform float uTime;\nuniform float uWind;\nuniform float uH;\n" + sh.vertexShader.replace("#include <begin_vertex>", `#include <begin_vertex>
+        #ifdef USE_INSTANCING
+          mat4 wm = instanceMatrix;
+        #else
+          mat4 wm = modelMatrix;
+        #endif
+        vec3 ip = wm[3].xyz;
+        mat3 im = mat3(wm);
+        float wk = clamp(position.y / uH, 0.0, 1.0); wk *= wk;
+        float wv = sin(uTime * 1.5 + ip.x * 0.45 + ip.z * 0.32) * 0.55 + sin(uTime * 2.6 + ip.x * 1.1 - ip.z * 0.8) * 0.22 + sin(uTime * 0.7 + ip.x * 0.12) * 0.4;
+        float wb = (uWind * 0.8 + wv * 0.35) * wk * uH * 0.8;
+        vec3 ww = vec3(wb, -abs(wb) * 0.15, wb * 0.35);
+        transformed += vec3(dot(im[0], ww), dot(im[1], ww), dot(im[2], ww)) / dot(im[0], im[0]);`);
+    };
+    return m;
+  }
+
+  /* sky, light, fog */
+  const skyU = { top: { value: new T.Color() }, hor: { value: new T.Color() }, sunDir: { value: new T.Vector3() }, sunCol: { value: new T.Color() }, night: { value: 0 } };
+  const sky = new T.Mesh(new T.SphereGeometry(400, 32, 16), new T.ShaderMaterial({
+    uniforms: skyU, side: T.BackSide, depthWrite: false, fog: false,
+    vertexShader: "varying vec3 vDir; void main(){ vDir = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
+    fragmentShader: `uniform vec3 top, hor, sunCol, sunDir; uniform float night; varying vec3 vDir;
+      float h(vec3 p){ return fract(sin(dot(p, vec3(12.9898, 78.233, 45.164))) * 43758.5453); }
+      void main(){
+        vec3 d = normalize(vDir); float y = clamp(d.y, -0.2, 1.0);
+        vec3 c = mix(hor, top, pow(max(y, 0.0), 0.5));
+        float s = max(dot(d, normalize(sunDir)), 0.0);
+        c += sunCol * (pow(s, 900.0) * (night > 0.5 ? 1.4 : 4.0) + pow(s, 14.0) * 0.32 + pow(s, 3.0) * 0.12);
+        if (night > 0.5) { float st = step(0.9978, h(floor(d * 320.0))); c += vec3(st) * smoothstep(0.02, 0.3, y) * 0.85; }
+        gl_FragColor = vec4(c, 1.0);
+      }`
+  }));
+  scene.add(sky);
+  const hemi = new T.HemisphereLight(0xffffff, 0x445522, 1), sun = new T.DirectionalLight(0xffffff, 1), fill = new T.DirectionalLight(0xffffff, 0.5);
+  fill.position.set(0.3, 0.8, 1);
+  scene.add(hemi, sun, fill);
+
+  /* distant hills */
+  const hillMats = [new T.MeshBasicMaterial({ fog: false }), new T.MeshBasicMaterial({ fog: false })];
+  [[-120, -250, 120, 30, 60, 0], [70, -270, 150, 36, 70, 0], [200, -230, 100, 26, 50, 0], [-50, -215, 75, 15, 40, 1], [120, -205, 85, 17, 40, 1], [-170, -185, 70, 20, 50, 1], [230, -150, 60, 16, 60, 1]]
+    .forEach(([x, z, sx, sy, sz, l]) => { const m = new T.Mesh(new T.SphereGeometry(1, 32, 14), hillMats[l]); m.scale.set(sx, sy, sz); m.position.set(x, -3, z); scene.add(m); });
+
+  /* ground with a worn dirt path */
+  (() => {
+    const c = document.createElement("canvas"); c.width = 1024; c.height = 2048;
+    const x = c.getContext("2d");
+    x.fillStyle = "#4B5A2A"; x.fillRect(0, 0, 1024, 2048);
+    const cols = ["#3E4E22", "#56642E", "#5F5530", "#46552A", "#6B6238", "#35441D"];
+    x.globalAlpha = 0.5;
+    for (let i = 0; i < 90000; i++) { x.fillStyle = cols[(R() * cols.length) | 0]; x.fillRect(R() * 1024, R() * 2048, 1 + R() * 3, 1 + R() * 3); }
+    const px = (wx, wz) => [(wx + 24) / 48 * 1024, (wz + 100) / 112 * 2048];
+    x.fillStyle = "#8C7552";
+    for (let z = -100; z < 12; z += 0.04) { const [a, b] = px(pathX(z), z); x.globalAlpha = 0.07; x.beginPath(); x.ellipse(a + (R() - 0.5) * 6, b, 11 + R() * 6, 4, 0, 0, TAU); x.fill(); }
+    x.globalAlpha = 0.55;
+    for (let i = 0; i < 7000; i++) { const z = rr(-100, 12), [a, b] = px(pathX(z) + (R() - 0.5) * 0.9, z); x.fillStyle = rp(["#A08A64", "#6E5A3C", "#B7A27A"]); x.fillRect(a, b, 2, 2); }
+    const tex = new T.CanvasTexture(c); tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    const g = new T.PlaneGeometry(48, 112); g.rotateX(-Math.PI / 2); g.translate(0, 0, -44);
+    scene.add(new T.Mesh(g, new T.MeshStandardMaterial({ map: tex, roughness: 1 })));
+    const og = new T.PlaneGeometry(900, 900); og.rotateX(-Math.PI / 2); og.translate(0, -0.03, 0);
+    scene.add(new T.Mesh(og, new T.MeshStandardMaterial({ color: 0x46552A, roughness: 1 })));
+  })();
+
+  /* grass: every blade is its own instance, bent by wind and by the pointer on the GPU */
+  const grassU = { uTime: time, uWind: windU, uPush: { value: new T.Vector3(0, -99, 0) }, uPushS: { value: 0 },
+    uBase: { value: new T.Color() }, uTip: { value: new T.Color() }, uDry: { value: new T.Color() }, uFogCol: { value: new T.Color() },
+    uFogNear: { value: FOG.near }, uFogFar: { value: FOG.far }, uSunDir: { value: new T.Vector3() }, uSunCol: { value: new T.Color() } };
+  (() => {
+    const GN = small ? 140000 : 380000, SEG = 4, bp = [], bi = [];
+    for (let j = 0; j < SEG; j++) { const y = j / SEG; bp.push(-0.5, y, 0, 0.5, y, 0); }
+    bp.push(0, 1, 0);
+    for (let j = 0; j < SEG - 1; j++) { const a = j * 2; bi.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
+    bi.push((SEG - 1) * 2, (SEG - 1) * 2 + 1, SEG * 2);
+    const gg = new T.InstancedBufferGeometry();
+    gg.setIndex(bi); gg.setAttribute("position", new T.Float32BufferAttribute(bp, 3));
+    const off = new Float32Array(GN * 3), par = new Float32Array(GN * 4);
+    let n = 0;
+    while (n < GN) {
+      const u = R() * 2 - 1, x = Math.sign(u) * Math.pow(Math.abs(u), 1.35) * 16, z = rr(ZEND, 12), dp = Math.abs(x - pathX(z));
+      let h = rr(0.22, 0.55) * (0.7 + 0.55 * (Math.sin(x * 0.4 + 1) * Math.sin(z * 0.27) * 0.5 + 0.5));
+      if (dp < 0.58) continue; else if (dp < 0.9) h *= 0.6;
+      off[n * 3] = x; off[n * 3 + 2] = z;
+      par[n * 4] = h; par[n * 4 + 1] = rr(0.022, 0.04); par[n * 4 + 2] = rr(0, TAU); par[n * 4 + 3] = R();
+      n++;
+    }
+    gg.setAttribute("offset", new T.InstancedBufferAttribute(off, 3)); gg.setAttribute("params", new T.InstancedBufferAttribute(par, 4));
+    gg.instanceCount = GN;
+    const mesh = new T.Mesh(gg, new T.ShaderMaterial({
+      uniforms: grassU, side: T.DoubleSide,
+      vertexShader: `attribute vec3 offset; attribute vec4 params;
+        uniform float uTime, uWind, uPushS; uniform vec3 uPush;
+        varying float vY, vShade, vDepth; varying vec3 vW;
+        void main(){
+          float h = params.x, w = params.y, a = params.z, y = position.y;
+          vec3 p = vec3(position.x * w * (1.0 - y * 0.9), y * h, 0.0);
+          float c = cos(a), s = sin(a);
+          p = vec3(p.x * c, p.y, -p.x * s);
+          p.xz += vec2(cos(a * 1.7), sin(a * 1.3)) * 0.2 * h * y * y;
+          vec2 o = offset.xz;
+          float wv = sin(uTime * 1.5 + o.x * 0.45 + o.y * 0.32) * 0.55 + sin(uTime * 2.6 + o.x * 1.1 - o.y * 0.8) * 0.22 + sin(uTime * 0.7 + o.x * 0.12) * 0.4;
+          float b = (uWind * 0.8 + wv * 0.35) * y * y * h;
+          p.x += b; p.z += b * 0.35; p.y -= abs(b) * 0.25 * y;
+          vec3 wp = offset + p;
+          vec2 d = wp.xz - uPush.xz; float f = (1.0 - smoothstep(0.0, 0.9, length(d))) * uPushS;
+          p.xz += normalize(d + vec2(0.0001)) * f * y * h * 0.8; p.y -= f * y * h * 0.35;
+          wp = offset + p;
+          vW = wp; vY = y; vShade = params.w;
+          vec4 mv = modelViewMatrix * vec4(wp, 1.0);
+          vDepth = -mv.z;
+          gl_Position = projectionMatrix * mv;
+        }`,
+      fragmentShader: `uniform vec3 uBase, uTip, uDry, uFogCol, uSunDir, uSunCol; uniform float uFogNear, uFogFar;
+        varying float vY, vShade, vDepth; varying vec3 vW;
+        void main(){
+          vec3 col = mix(uBase, uTip, smoothstep(0.0, 1.0, vY));
+          col = mix(col, uDry, step(0.88, vShade) * 0.75 * vY);
+          col *= 0.88 + vShade * 0.26;
+          col *= 0.42 + 0.58 * vY;
+          float back = pow(max(dot(normalize(vW - cameraPosition), normalize(uSunDir)), 0.0), 3.0);
+          col += uSunCol * back * vY * vY * 0.5;
+          gl_FragColor = vec4(mix(col, uFogCol, smoothstep(uFogNear, uFogFar, vDepth)), 1.0);
+        }`
+    }));
+    mesh.frustumCulled = false;
+    scene.add(mesh);
+  })();
+
+  /* wildflowers: instanced by species, clustered in patches the way they seed themselves */
+  function stemGeo(h, bend, r0) {
+    const g = new T.CylinderGeometry(r0 * 0.6, r0, h, 5, 6, true);
+    g.translate(0, h / 2, 0);
+    const p = g.attributes.position;
+    for (let i = 0; i < p.count; i++) { const y = p.getY(i) / h; p.setX(i, p.getX(i) + bend * y * y); }
+    g.computeVertexNormals();
+    return paint(g, "#3F6424", "#5E8A34");
+  }
+  function ring(arr, n, spec, tilt, rot) { for (let k = 0; k < n; k++) { const g = bladeGeo(spec); g.rotateX(tilt); g.rotateZ((k + (rot || 0)) / n * TAU); arr.push(g); } }
+  function blob(arr, r, c, sz, at) { const g = new T.SphereGeometry(r, 10, 7); g.scale(1, 1, sz); if (at) g.translate(at[0], at[1], at[2]); arr.push(paint(g, c, c)); }
+  function smallFlower(o) {
+    const h = o.h, b = o.bend || 0.04, parts = [stemGeo(h, b, o.stemR || 0.005)];
+    for (let k = 0; k < (o.leaves == null ? 2 : o.leaves); k++) {
+      const f = 0.15 + k * 0.2, L = bladeGeo({ len: o.leafLen || 0.09, wid: o.leafWid || 0.022, cup: 0.1, fold: 0.6, curl: -0.25, c0: "#3B5E22", c1: "#6E9A3A", segL: 5, segW: 2 });
+      L.rotateZ((k % 2 ? 1 : -1) * 1.0); L.rotateY(k * 2.1); L.translate(b * f * f, h * f, 0); parts.push(L);
+    }
+    if (o.spike) o.spike(parts, h, b);
+    const head = [];
+    if (o.head) o.head(head);
+    for (const g of head) { g.rotateX(-Math.PI / 2 + (o.tilt == null ? 0.45 : o.tilt)); g.translate(b, h, 0); parts.push(g); }
+    return merge(parts);
+  }
+  const SMALL = {
+    daisy: { h: 0.45, head: a => { ring(a, 16, { len: 0.034, wid: 0.01, shape: "round", cup: 0.15, c0: "#DCD8C8", c1: "#FFFFFF", segL: 4, segW: 2 }, 0.1); blob(a, 0.011, "#E7AE12", 0.6); } },
+    poppy: { h: 0.55, bend: 0.06, head: a => { ring(a, 4, { len: 0.05, wid: 0.055, shape: "round", cup: 0.7, crinkle: 1, c0: "#3A0A08", c1: "#E8321A", gp: 0.3, segL: 5, segW: 4 }, 0.55); blob(a, 0.009, "#2A2A20", 1); } },
+    cornflower: { h: 0.5, head: a => { ring(a, 12, { len: 0.026, wid: 0.012, shape: "point", cup: 0.1, tooth: true, c0: "#2E3FA8", c1: "#5B7BE8", segL: 4, segW: 2 }, 0.45); blob(a, 0.006, "#3A2A7A", 0.8); } },
+    buttercup: { h: 0.32, tilt: 0.7, head: a => { ring(a, 5, { len: 0.017, wid: 0.02, shape: "round", cup: 0.8, c0: "#D8A10A", c1: "#FFE14A", segL: 4, segW: 3 }, 0.7); blob(a, 0.004, "#C8B040", 1); } },
+    lavender: { h: 0.55, leafLen: 0.12, leafWid: 0.008, leaves: 4, spike: (a, h, b) => { for (let k = 0; k < 16; k++) { const y = h * (0.72 + k * 0.018), f = y / h; blob(a, 0.0075 * (1 - k * 0.03), k % 3 ? "#7B62B8" : "#9C86D6", 1, [b * f * f + Math.sin(k * 2.4) * 0.007, y, Math.cos(k * 2.4) * 0.007]); } } },
+    clover: { h: 0.16, leaves: 3, leafLen: 0.03, leafWid: 0.024, tilt: 0.2, head: a => { for (let k = 0; k < 26; k++) { const th = k * 2.4, r = 0.012 * Math.sqrt(k / 26); blob(a, 0.004, k % 2 ? "#E7C6D6" : "#F6EAF0", 1.4, [Math.cos(th) * r, Math.sin(th) * r, 0.008 * (1 - r / 0.012)]); } } }
+  };
+  const smallGeos = {}, smallMats = {};
+  Object.entries(SMALL).forEach(([k, o]) => { smallGeos[k] = smallFlower(o); smallMats[k] = windMat(o.h); });
+  (() => {
+    const counts = { daisy: 420, poppy: 260, cornflower: 220, buttercup: 360, lavender: 200, clover: 260 }, dummy = new T.Object3D();
+    Object.entries(counts).forEach(([k, n0]) => {
+      const n = small ? Math.round(n0 * 0.45) : n0, mesh = new T.InstancedMesh(smallGeos[k], smallMats[k], n);
+      const patches = Array.from({ length: 16 }, () => { const u = R() * 2 - 1; return [Math.sign(u) * (0.8 + Math.pow(Math.abs(u), 1.3) * 11), rr(ZEND + 10, 8)]; });
+      for (let i = 0; i < n; i++) {
+        const [px, pz] = rp(patches), a = rr(0, TAU), r = Math.pow(R(), 0.7) * 2.6;
+        let x = px + Math.cos(a) * r; const z = pz + Math.sin(a) * r;
+        if (Math.abs(x - pathX(z)) < 0.5) x += Math.sign(x - pathX(z) || 1) * 0.5;
+        dummy.position.set(x, 0, z); dummy.rotation.set(0, rr(0, TAU), 0); dummy.scale.setScalar(rr(0.75, 1.3)); dummy.updateMatrix();
+        mesh.setMatrixAt(i, dummy.matrix);
+      }
+      mesh.frustumCulled = false; scene.add(mesh);
+    });
+  })();
+
+  /* stepping stones */
+  (() => {
+    const g = new T.DodecahedronGeometry(1, 1), p = g.attributes.position;
+    for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i), z = p.getZ(i), k = 1 + 0.13 * Math.sin(x * 5 + y * 3) * Math.cos(z * 4) + 0.05 * Math.sin(x * 11 - z * 9); p.setXYZ(i, x * k, y * k, z * k); }
+    g.computeVertexNormals(); paint(g, "#57524A", "#8F8878");
+    const list = []; for (let z = 3; z > ZEND + 6; z -= rr(0.95, 1.25)) list.push(z);
+    const mesh = new T.InstancedMesh(g, new T.MeshStandardMaterial({ vertexColors: true, roughness: 0.95, flatShading: true }), list.length), dm = new T.Object3D();
+    list.forEach((z, i) => { dm.position.set(pathX(z) + rr(-0.12, 0.12), 0.012, z); dm.rotation.set(0, rr(0, TAU), 0); dm.scale.set(rr(0.22, 0.3), rr(0.05, 0.08), rr(0.17, 0.24)); dm.updateMatrix(); mesh.setMatrixAt(i, dm.matrix); });
+    mesh.frustumCulled = false; scene.add(mesh);
+  })();
+
+  /* tree line and hedgerow */
+  (() => {
+    function treeGeo(seed) {
+      const r = mulberry(seed), parts = [], th = 2.6 + r() * 1.2, tr = new T.CylinderGeometry(0.14, 0.26, th, 7, 1);
+      tr.translate(0, th / 2, 0); parts.push(paint(tr, "#3B2A1C", "#5A4330"));
+      for (let k = 0; k < 7; k++) {
+        const s = 1.1 + r() * 0.9, g = new T.SphereGeometry(s, 18, 14), pp = g.attributes.position;
+        for (let i = 0; i < pp.count; i++) { const x = pp.getX(i), y = pp.getY(i), z = pp.getZ(i), n = 1 + 0.1 * Math.sin(x * 1.6 + y * 1.3) * Math.cos(z * 1.7 - y) + 0.035 * Math.sin(x * 5 + z * 4 + y * 3); pp.setXYZ(i, x * n, y * n * 0.85, z * n); }
+        g.computeVertexNormals(); g.translate((r() - 0.5) * 2.4, th + 0.6 + r() * 2.2, (r() - 0.5) * 2.4);
+        paint(g, "#1B3314", "#5C8A34");
+        const cc = g.attributes.color; for (let i = 0; i < cc.count; i++) { const v = 0.8 + r() * 0.35; cc.setXYZ(i, cc.getX(i) * v, cc.getY(i) * v, cc.getZ(i) * v); }
+        parts.push(g);
+      }
+      return merge(parts);
+    }
+    const mat = new T.MeshStandardMaterial({ vertexColors: true, roughness: 0.9 }), dm = new T.Object3D();
+    [treeGeo(3), treeGeo(11)].forEach((geo, v) => {
+      const spots = [];
+      for (let i = 0; i < (small ? 40 : 70); i++) spots.push([(R() < 0.5 ? -1 : 1) * rr(18, 58), rr(-125, 25), rr(0.9, 1.7)]);
+      for (let i = 0; i < 18; i++) spots.push([rr(-45, 45), rr(-130, -98), rr(1.1, 1.9)]);
+      for (let i = 0; i < 26; i++) spots.push([(R() < 0.5 ? -1 : 1) * rr(8, 14), rr(-95, 15), rr(0.18, 0.32)]);
+      const mesh = new T.InstancedMesh(geo, mat, spots.length);
+      const tc = new T.Color();
+      spots.forEach(([x, z, s], i) => { dm.position.set(x, s < 0.4 ? -0.5 * s : 0, z); dm.rotation.set(0, rr(0, TAU), 0); dm.scale.setScalar(s); dm.updateMatrix(); mesh.setMatrixAt(i, dm.matrix); mesh.setColorAt(i, tc.setHSL(rr(0.2, 0.3), rr(0.25, 0.5), rr(0.42, 0.6)).multiplyScalar(1.6)); });
+      mesh.frustumCulled = false; scene.add(mesh);
+    });
+  })();
+
+  /* the eight skill flowers */
+  const petalMat = new T.MeshStandardMaterial({ vertexColors: true, side: T.DoubleSide, roughness: 0.5 });
+  const leafMat = new T.MeshStandardMaterial({ vertexColors: true, side: T.DoubleSide, roughness: 0.65 });
+  const stemMat = new T.MeshStandardMaterial({ color: 0x4C7A2C, roughness: 0.7 });
+  const dotGeo = new T.SphereGeometry(1, 6, 4);
+  function dots(head, n, place, colA, colB, scale) {
+    const m = new T.InstancedMesh(dotGeo, new T.MeshStandardMaterial({ roughness: 0.8 }), n), dm = new T.Object3D(), A = new T.Color(colA), B = new T.Color(colB), c = new T.Color();
+    for (let i = 0; i < n; i++) { const [x, y, z, k] = place(i); dm.position.set(x, y, z); dm.scale.setScalar(scale * (0.7 + 0.5 * k)); dm.updateMatrix(); m.setMatrixAt(i, dm.matrix); m.setColorAt(i, c.copy(A).lerp(B, k)); }
+    head.add(m);
+  }
+  const phy = (R0, n, zc) => i => { const f = Math.sqrt(i / n), r = R0 * f, th = i * 2.39996; return [Math.cos(th) * r, Math.sin(th) * r, zc * (1 - f * f) + 0.003, f]; };
+  function disc(head, r, c, sz) { const m = new T.Mesh(new T.SphereGeometry(r, 20, 12), new T.MeshStandardMaterial({ color: c, roughness: 0.85 })); m.scale.z = sz; head.add(m); }
+  const heroFlowers = SKILLS.map((s, i) => {
+    const kind = s.flower, g = new T.Group(), side = i % 2 ? -1 : 1, H = rr(1.3, 1.4), petals = [];
+    const curve = new T.CatmullRomCurve3([new T.Vector3(0, 0, 0), new T.Vector3(rr(-0.04, 0.04), H * 0.35, rr(-0.03, 0.03)), new T.Vector3(rr(-0.05, 0.05), H * 0.7, 0.02), new T.Vector3(0, H, 0.06)]);
+    g.add(new T.Mesh(new T.TubeGeometry(curve, 28, kind === "sunflower" ? 0.016 : 0.011, 7), stemMat));
+    for (let k = 0; k < 4; k++) {
+      const p = curve.getPoint(0.16 + k * 0.15), L = bladeGeo({ len: rr(0.2, 0.28) * (1 - k * 0.12), wid: rr(0.06, 0.08), cup: 0.15, fold: 0.7, curl: -0.35, c0: "#2F5A1E", c1: "#6E9E3C" });
+      const m = new T.Mesh(L, leafMat); m.position.copy(p); m.rotation.set(rr(-0.2, 0.2), k * 2.3 + rr(0, 0.6), (k % 2 ? 1 : -1) * rr(0.9, 1.25)); g.add(m);
+    }
+    const head = new T.Group();
+    head.position.copy(curve.getPoint(1)); head.rotation.set(-0.3, -side * 0.38, 0, "YXZ"); head.scale.setScalar(1.25);
+    const addRing = (spec, n, open, ri, rot) => {
+      const geo = bladeGeo(spec);
+      for (let k = 0; k < n; k++) {
+        const piv = new T.Object3D(); piv.rotation.z = (k + (rot || 0)) / n * TAU + rr(-0.04, 0.04);
+        const m = new T.Mesh(geo, petalMat); piv.add(m); head.add(piv);
+        petals.push({ m, open: open + rr(-0.05, 0.05), ri });
+      }
+    };
+    const f = { g, head, petals, side, ph: rr(0, TAU), z: Z0 - (i + 0.9) * D - NEAR };
+    if (kind === "sunflower") {
+      addRing({ len: 0.13, wid: 0.042, cup: 0.35, curl: -0.08, c0: "#C9780A", c1: "#FFC619", gp: 0.6, base: 0.08 }, 21, 0.05, 0);
+      addRing({ len: 0.12, wid: 0.042, cup: 0.35, curl: -0.05, c0: "#C9780A", c1: "#FFC619", gp: 0.6, base: 0.075 }, 21, 0.24, 1, 0.5);
+      disc(head, 0.092, 0x3A2211, 0.32);
+      dots(head, 380, phy(0.088, 380, 0.028), "#2A160A", "#8A6A22", 0.0048);
+    } else if (kind === "cosmos") {
+      addRing({ len: 0.14, wid: 0.075, shape: "round", cup: 0.12, tooth: true, c0: "#4F46B8", c1: "#63B3E8", gp: 0.7, base: 0.015 }, 8, 0.12, 0);
+      disc(head, 0.028, 0xE5A91A, 0.5);
+      dots(head, 60, phy(0.026, 60, 0.012), "#B87A0A", "#FFD24A", 0.0035);
+    } else if (kind === "dahlia") {
+      [[16, 0.16, 0.0], [16, 0.14, 0.3], [14, 0.115, 0.6], [12, 0.09, 0.9], [10, 0.065, 1.15], [8, 0.04, 1.35]].forEach(([n, len, open], k) =>
+        addRing({ len, wid: 0.045, cup: 1.1, c0: "#7A1450", c1: "#F2649A", gp: 0.7 }, n, open, k, k % 2 ? 0.5 : 0));
+      disc(head, 0.012, 0xF2B320, 0.8);
+    } else if (kind === "poppy") {
+      addRing({ len: 0.13, wid: 0.16, shape: "round", cup: 0.55, crinkle: 1.2, c0: "#1E0606", c1: "#EE3A1C", gp: 0.28, segL: 10, segW: 8 }, 2, 0.45, 0);
+      addRing({ len: 0.12, wid: 0.15, shape: "round", cup: 0.6, crinkle: 1.2, c0: "#1E0606", c1: "#EE3A1C", gp: 0.28, segL: 10, segW: 8 }, 2, 0.75, 1, 0.5);
+      disc(head, 0.026, 0x7D9A52, 0.9);
+      dots(head, 70, i2 => { const a = i2 / 70 * TAU * 3, r = 0.034 + (i2 % 3) * 0.005; return [Math.cos(a) * r, Math.sin(a) * r, 0.012, R()]; }, "#150E0C", "#3A2A20", 0.0032);
+    } else if (kind === "anemone") {
+      addRing({ len: 0.12, wid: 0.1, shape: "round", cup: 0.25, c0: "#8E7CCF", c1: "#FBF8F1", gp: 0.45 }, 6, 0.18, 0);
+      disc(head, 0.026, 0x1A1220, 0.8);
+      dots(head, 64, i2 => { const a = i2 * 2.39996, r = 0.032 + (i2 % 4) * 0.005; return [Math.cos(a) * r, Math.sin(a) * r, 0.014, R()]; }, "#120C14", "#2C2034", 0.0034);
+    } else if (kind === "rose") {
+      for (let k = 0; k < 26; k++) {
+        const t = k / 25, len = 0.04 + 0.085 * t, geo = bladeGeo({ len, wid: len * 1.15, shape: "round", cup: 1.2, curl: -0.3 * t, c0: "#8C0F3A", c1: "#F05A78", gp: 0.6 });
+        const piv = new T.Object3D(); piv.rotation.z = k * 2.39996; const m = new T.Mesh(geo, petalMat); piv.add(m); head.add(piv);
+        petals.push({ m, open: lerp(1.25, 0.35, t), ri: (1 - t) * 3 });
+      }
+    } else if (kind === "daisy") {
+      addRing({ len: 0.12, wid: 0.02, shape: "round", cup: 0.15, c0: "#E3DED0", c1: "#FFFFFF", gp: 0.5, base: 0.03 }, 34, 0.06, 0);
+      addRing({ len: 0.105, wid: 0.02, shape: "round", cup: 0.15, c0: "#E3DED0", c1: "#FFFFFF", gp: 0.5, base: 0.028 }, 28, 0.2, 1, 0.5);
+      disc(head, 0.036, 0xE9AE14, 0.45);
+      dots(head, 200, phy(0.034, 200, 0.015), "#C9820A", "#F2C230", 0.0032);
+    } else if (kind === "dandelion") {
+      const SN = 150, arr = new Float32Array(SN * 14 * 3), dirs = [];
+      const order = Array.from({ length: SN }, (_, k) => k).sort(() => R() - 0.5);
+      order.forEach((k, slot) => {
+        const y = 1 - 2 * (k + 0.5) / SN, r = Math.sqrt(1 - y * y), th = k * 2.39996, d = new T.Vector3(Math.cos(th) * r, y, Math.sin(th) * r);
+        dirs.push(d);
+        const a = d.clone().multiplyScalar(0.012), b = d.clone().multiplyScalar(0.11);
+        const t1 = new T.Vector3().crossVectors(d, Math.abs(d.y) < 0.9 ? new T.Vector3(0, 1, 0) : new T.Vector3(1, 0, 0)).normalize(), t2 = new T.Vector3().crossVectors(d, t1);
+        let o = slot * 42; const put = v => { arr[o++] = v.x; arr[o++] = v.y; arr[o++] = v.z; };
+        put(a); put(b);
+        for (let m = 0; m < 6; m++) { const an = m / 6 * TAU; put(b); put(b.clone().addScaledVector(d, 0.018).addScaledVector(t1, Math.cos(an) * 0.022).addScaledVector(t2, Math.sin(an) * 0.022)); }
+      });
+      const lg = new T.BufferGeometry(); lg.setAttribute("position", new T.BufferAttribute(arr, 3));
+      head.add(new T.LineSegments(lg, new T.LineBasicMaterial({ color: 0xF3F0E4, transparent: true, opacity: 0.85 })));
+      disc(head, 0.013, 0x8A7A5A, 1);
+      f.seeds = { SN, keep: SN, lg, dirs };
+    }
+    g.add(head);
+    scene.add(g);
+    return f;
+  });
+
+  /* butterflies: one rests on each skill flower. When you arrive it lights up, lifts off and flies to its field card */
+  const halo = (() => { const c = document.createElement("canvas"); c.width = c.height = 64; const x = c.getContext("2d"), g = x.createRadialGradient(32, 32, 0, 32, 32, 32); g.addColorStop(0, "rgba(255,250,220,.95)"); g.addColorStop(0.35, "rgba(255,235,170,.45)"); g.addColorStop(1, "rgba(255,230,160,0)"); x.fillStyle = g; x.fillRect(0, 0, 64, 64); return new T.CanvasTexture(c); })();
+  const wingGeoB = new T.PlaneGeometry(0.09, 0.09); wingGeoB.translate(0.045, 0, 0); wingGeoB.rotateX(-Math.PI / 2);
+  const bodyMatB = new T.MeshStandardMaterial({ color: 0x1C1712, roughness: 0.7 });
+  const bodyGeoB = new T.CylinderGeometry(0.005, 0.0035, 0.062, 8); bodyGeoB.rotateX(Math.PI / 2);
+  heroFlowers.forEach(f => { f.g.traverse(o => { if (o.isMesh || o.isLine || o.isLineSegments) o.visible = false; }); f.seeds = null; });
+  const cardEls = [...document.querySelectorAll(".wp")];
+  const butterflies = SKILLS.map((s, i) => {
+    const tex = new T.CanvasTexture(WINGS[i]); tex.flipY = false;
+    const mat = new T.MeshStandardMaterial({ map: tex, transparent: true, alphaTest: 0.4, side: T.DoubleSide, roughness: 0.55, emissive: 0xffffff, emissiveMap: tex, emissiveIntensity: 0.18 });
+    const g = new T.Group(), wr = new T.Mesh(wingGeoB, mat), wl = new T.Mesh(wingGeoB, mat);
+    wl.scale.x = -1;
+    const head = new T.Mesh(new T.SphereGeometry(0.007, 10, 8), bodyMatB); head.position.z = 0.033;
+    for (const sd of [-1, 1]) { const a = new T.Mesh(new T.CylinderGeometry(0.0008, 0.0008, 0.04, 4), bodyMatB); a.position.set(sd * 0.006, 0.01, 0.05); a.rotation.set(1.0, 0, -sd * 0.35); g.add(a); }
+    const glow = new T.Sprite(new T.SpriteMaterial({ map: halo, transparent: true, blending: T.AdditiveBlending, depthWrite: false, opacity: 0 }));
+    glow.scale.setScalar(0.35);
+    g.add(new T.Mesh(bodyGeoB, bodyMatB), head, wr, wl, glow);
+    scene.add(g);
+    return { g, wr, wl, glow, state: "rest", k: 0, timer: 0, gl: 0, ph: rr(0, TAU), pos: new T.Vector3(), prev: new T.Vector3(), q: new T.Quaternion() };
+  });
+  const restP = new T.Vector3(), tgtP = new T.Vector3(), c1 = new T.Vector3(), c2 = new T.Vector3(), bv = new T.Vector3(), bm = new T.Matrix4();
+  const bez3 = (a, b, c, d, u, out) => { const v = 1 - u; return out.set(0, 0, 0).addScaledVector(a, v * v * v).addScaledVector(b, 3 * v * v * u).addScaledVector(c, 3 * v * u * u).addScaledVector(d, u * u * u); };
+  function cardPoint(i, out) {
+    const el = cardEls[i] && cardEls[i].querySelector(".fg-fly");
+    const r = el ? el.getBoundingClientRect() : { left: innerWidth / 2, top: innerHeight / 3, width: 0, height: 0 };
+    const nx = (r.left + r.width / 2) / innerWidth * 2 - 1, ny = -((r.top + r.height / 2) / innerHeight) * 2 + 1;
+    bv.set(nx, ny, 0.5).unproject(camera).sub(camera.position).normalize();
+    return out.copy(camera.position).addScaledVector(bv, 1.05);
+  }
+  function butterflyStep(dt, P, t) {
+    butterflies.forEach((b, i) => {
+      const f = heroFlowers[i], d = camera.position.z - f.z, near = d > -3 && d < 60;
+      const bump = clamp(1 - Math.abs(P - (i + 0.9)) * 1.1, 0, 1);
+      f.head.updateWorldMatrix(true, false); f.head.localToWorld(restP.set(0, 0.035, 0.035)); restP.y += 0.012;
+      // roam freely around the meadow, then drift in close (and into view) as you reach this stop
+      const rk = clamp((bump - 0.35) / 0.5, 0, 1), roam = 1 - rk * rk * (3 - 2 * rk), tt = t * 0.55;
+      restP.x += (Math.sin(tt * 0.9 + b.ph) * 2.2 + Math.sin(tt * 2.1 + b.ph * 2) * 0.6) * roam + Math.sin(t * 0.9 + b.ph) * 0.05;
+      restP.z += (Math.cos(tt * 0.7 + b.ph * 1.3) * 2.6 + Math.sin(tt * 1.6 + b.ph) * 0.5) * roam;
+      restP.y += (Math.sin(tt * 1.3 + b.ph) * 0.35 - 0.3) * roam + Math.sin(t * 1.5 + b.ph) * 0.045;
+      restP.y = Math.max(restP.y, 0.75); restP.z = Math.min(restP.z, camera.position.z - 0.9);
+      const speed = reduce ? 6 : 1;
+      let wing, facing = null;
+      if (b.state === "rest") {
+        b.pos.copy(restP);
+        wing = 0.3 + Math.sin(t * (9 + 8 * roam) + b.ph) * 0.85;
+        if (bump > 0.82 && near && d < NEAR + 1.2) { b.state = "glow"; b.timer = 0; }
+      } else if (b.state === "glow") {
+        b.pos.copy(restP); b.timer += dt * speed;
+        wing = 0.35 + Math.sin(b.timer * 9) * 0.25;
+        if (bump < 0.5) b.state = "rest"; else if (b.timer > 0.9) { b.state = "fly"; b.k = 0; }
+      } else if (b.state === "fly") {
+        b.k = Math.min(1, b.k + dt * speed / 1.5); cardPoint(i, tgtP);
+        c1.copy(restP).add(bv.set(0, 0.45, 0)); c2.copy(tgtP).add(bv.set(0, 0.18, 0.2));
+        bez3(restP, c1, c2, tgtP, ease(b.k), b.pos);
+        b.pos.x += Math.sin(t * 3.1 + b.ph) * 0.03 * Math.sin(Math.PI * b.k); b.pos.y += Math.sin(t * 4.3) * 0.025 * Math.sin(Math.PI * b.k);
+        wing = 0.3 + Math.sin(t * 24 + b.ph) * 0.95;
+        if (b.k >= 1) { b.state = "card"; cardEls[i].classList.add("open"); walk.markSeen(i); }
+        else if (bump < 0.45) { b.state = "back"; b.k = 1 - b.k; }
+      } else if (b.state === "card") {
+        cardPoint(i, b.pos); wing = 0.4;
+        if (bump < 0.45) { b.state = "back"; b.k = 0; cardEls[i].classList.remove("open"); }
+      } else {
+        b.k = Math.min(1, b.k + dt * speed / 1.3); cardPoint(i, tgtP);
+        c1.copy(tgtP).add(bv.set(0, 0.2, 0.2)); c2.copy(restP).add(bv.set(0, 0.5, 0));
+        bez3(tgtP, c1, c2, restP, ease(b.k), b.pos);
+        wing = 0.3 + Math.sin(t * 22 + b.ph) * 0.9;
+        if (b.k >= 1) b.state = "rest";
+      }
+      b.g.visible = near && b.state !== "card";
+      b.g.position.copy(b.pos);
+      // flying: head leads the way; while glowing it turns side-on so you see its colours
+      if (b.state !== "glow" && b.state !== "card") { bv.copy(b.pos).sub(b.prev); if (bv.lengthSq() > 1e-8) facing = c1.copy(b.pos).add(bv); }
+      if (!facing) { bv.copy(camera.position).sub(b.pos).setY(0).normalize(); facing = c1.copy(b.pos).add(bv.set(-bv.z, 0, bv.x)); }
+      bm.lookAt(facing, b.pos, T.Object3D.DefaultUp); b.q.setFromRotationMatrix(bm);
+      b.g.quaternion.slerp(b.q, 1 - Math.exp(-dt * 8));
+      b.wr.rotation.z = wing; b.wl.rotation.z = -wing;
+      b.gl = lerp(b.gl, b.state === "glow" ? 1 : b.state === "fly" ? 0.5 : 0.22, 1 - Math.exp(-dt * 6));
+      b.glow.material.opacity = b.gl; b.glow.scale.setScalar(0.3 + 0.08 * Math.sin(t * 6));
+      b.prev.copy(b.pos);
+    });
+  }
+
+  /* dandelion seeds in flight */
+  const tuft = (() => { const c = document.createElement("canvas"); c.width = c.height = 64; const x = c.getContext("2d"); x.strokeStyle = "#fff"; x.lineWidth = 2; for (let k = 0; k < 9; k++) { const a = -Math.PI / 2 + (k - 4) * 0.28; x.beginPath(); x.moveTo(32, 40); x.lineTo(32 + Math.cos(a) * 26, 40 + Math.sin(a) * 26); x.stroke(); } x.beginPath(); x.moveTo(32, 40); x.lineTo(32, 62); x.stroke(); return new T.CanvasTexture(c); })();
+  const flyGeo = new T.BufferGeometry(), flyPos = new Float32Array(300 * 3), flyers = [];
+  flyGeo.setAttribute("position", new T.BufferAttribute(flyPos, 3)); flyGeo.setDrawRange(0, 0);
+  const flyPts = new T.Points(flyGeo, new T.PointsMaterial({ size: 0.045, map: tuft, transparent: true, depthWrite: false, color: 0xF6F3E8 }));
+  flyPts.frustumCulled = false; scene.add(flyPts);
+
+  /* pollen by day, fireflies by night */
+  const moteU = { uTime: time, uCam: { value: new T.Vector3() }, uNight: { value: 0 }, uPR: { value: renderer.getPixelRatio() }, uCol: { value: new T.Color() } };
+  (() => {
+    const n = small ? 180 : 360, seed = new Float32Array(n * 4), pos = new Float32Array(n * 3);
+    for (let i = 0; i < n; i++) { seed.set([R(), R(), R(), R()], i * 4); }
+    const g = new T.BufferGeometry(); g.setAttribute("position", new T.BufferAttribute(pos, 3)); g.setAttribute("seed", new T.BufferAttribute(seed, 4));
+    const pts = new T.Points(g, new T.ShaderMaterial({
+      uniforms: moteU, transparent: true, depthWrite: false, blending: T.AdditiveBlending,
+      vertexShader: `attribute vec4 seed; uniform float uTime, uNight, uPR; uniform vec3 uCam; varying float vA;
+        void main(){
+          vec3 box = vec3(16.0, 2.6, 24.0), p = seed.xyz * box;
+          p.x += sin(uTime * 0.3 + seed.w * 6.28) * 0.8; p.z += cos(uTime * 0.22 + seed.w * 9.0) * 0.8;
+          p.y += sin(uTime * 0.5 + seed.w * 12.0) * 0.3 + uTime * 0.04 * (1.0 - uNight);
+          vec3 c = uCam + vec3(0.0, 0.0, -box.z * 0.35), w;
+          w.xz = c.xz + mod(p.xz - c.xz + box.xz * 0.5, box.xz) - box.xz * 0.5;
+          w.y = 0.15 + mod(p.y, box.y);
+          vec4 mv = modelViewMatrix * vec4(w, 1.0);
+          float blink = mix(0.55, pow(0.5 + 0.5 * sin(uTime * 2.2 + seed.w * 50.0), 3.0), uNight);
+          vA = blink * smoothstep(24.0, 6.0, -mv.z) * smoothstep(0.3, 1.2, -mv.z);
+          gl_PointSize = mix(2.0, 7.0, uNight) * uPR * (6.0 / -mv.z) + 1.0;
+          gl_Position = projectionMatrix * mv;
+        }`,
+      fragmentShader: `uniform vec3 uCol; uniform float uNight; varying float vA;
+        void main(){ float d = length(gl_PointCoord - 0.5), a = smoothstep(0.5, 0.0, d); a = mix(a * 0.55, pow(a, 1.6), uNight); gl_FragColor = vec4(uCol, a * vA); }`
+    }));
+    pts.frustumCulled = false; scene.add(pts);
+  })();
+
+  /* butterflies */
+  function wingTex(kind) {
+    const c = document.createElement("canvas"); c.width = c.height = 256; const x = c.getContext("2d");
+    const base = { monarch: ["#F08A24", "#B8480C"], blue: ["#7FC0FF", "#1C4FB8"], white: ["#FBF8EE", "#E4DEC8"] }[kind];
+    const fw = new Path2D(); fw.moveTo(4, 26); fw.bezierCurveTo(90, 0, 210, 0, 250, 30); fw.bezierCurveTo(240, 80, 200, 120, 130, 130); fw.lineTo(4, 122); fw.closePath();
+    const hw = new Path2D(); hw.moveTo(4, 118); hw.bezierCurveTo(120, 118, 190, 150, 175, 205); hw.bezierCurveTo(160, 245, 80, 250, 40, 232); hw.bezierCurveTo(20, 220, 6, 190, 4, 150); hw.closePath();
+    const all = new Path2D(); all.addPath(fw); all.addPath(hw);
+    for (const p of [hw, fw]) { const g = x.createRadialGradient(8, 128, 8, 8, 128, 260); g.addColorStop(0, base[1]); g.addColorStop(1, base[0]); x.fillStyle = g; x.fill(p); }
+    x.save(); x.clip(all);
+    if (kind === "white") { x.fillStyle = "#3A3630"; x.beginPath(); x.arc(236, 30, 30, 0, TAU); x.fill(); x.beginPath(); x.arc(150, 80, 9, 0, TAU); x.fill(); }
+    else {
+      x.strokeStyle = "#16110D"; x.lineWidth = 3;
+      for (let k = 0; k < 7; k++) { x.beginPath(); x.moveTo(6, 40 + k * 28); x.quadraticCurveTo(100, 40 + k * 30, 170 + k * 10, 8 + k * 36); x.stroke(); }
+      x.lineWidth = 22; x.stroke(fw); x.stroke(hw);
+      x.fillStyle = "#FFFFFF"; for (let k = 0; k < 40; k++) { const t = k / 40; x.beginPath(); x.arc(20 + t * 225, 10 + Math.sin(t * 9) * 4 + (k % 2 ? 6 : 0), 2.6, 0, TAU); x.fill(); x.beginPath(); x.arc(30 + t * 150, 225 - t * 30 + (k % 2 ? 6 : 0), 2.4, 0, TAU); x.fill(); }
+    }
+    x.restore();
+    const t = new T.CanvasTexture(c); t.flipY = false; return t;
+  }
+  const wingGeo = new T.PlaneGeometry(0.08, 0.08); wingGeo.translate(0.04, 0, 0); wingGeo.rotateX(-Math.PI / 2);
+  const bodyGeo = new T.CylinderGeometry(0.004, 0.003, 0.05, 6); bodyGeo.rotateX(Math.PI / 2);
+  const bodyMat = new T.MeshStandardMaterial({ color: 0x1A1512, roughness: 0.8 });
+  const flies = ["monarch", "blue", "monarch", "white", "blue"].slice(0, small ? 3 : 5).map((kind, i) => {
+    const mat = new T.MeshStandardMaterial({ map: wingTex(kind), transparent: true, alphaTest: 0.5, side: T.DoubleSide, roughness: 0.6 });
+    const b = new T.Group(), wr = new T.Mesh(wingGeo, mat), wl = new T.Mesh(wingGeo, mat);
+    wl.scale.x = -1; b.add(new T.Mesh(bodyGeo, bodyMat), wr, wl); scene.add(b);
+    return { b, wr, wl, ph: rr(0, TAU), ax: (i % 2 ? -1 : 1) * rr(0.8, 2.2), ay: rr(0.7, 1.4), az: -rr(2.5, 7.5), f: [rr(0.25, 0.45), rr(0.4, 0.7), rr(0.2, 0.4)], prev: new T.Vector3() };
+  });
+
+  /* flowers you plant */
+  const planted = [];
+  const ray = new T.Raycaster(), ndc = new T.Vector2(), plane = new T.Plane(new T.Vector3(0, 1, 0), 0), hit = new T.Vector3();
+  let pointerLife = 0, mx = 0, my = 0;
+  addEventListener("pointermove", e => { ndc.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1); mx = ndc.x * 0.5; my = ndc.y * 0.5; pointerLife = 1.2; }, { passive: true });
+  function groundAt(cx, cy) {
+    ndc.set(cx / innerWidth * 2 - 1, -(cy / innerHeight) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const p = ray.ray.intersectPlane(plane, hit);
+    return p && p.distanceTo(camera.position) < 30 ? p : null;
+  }
+  function plant(cx, cy) {
+    const p = groundAt(cx, cy);
+    if (!p) return false;
+    const kind = rp(["daisy", "poppy", "cornflower", "poppy", "lavender", "daisy"]), m = new T.Mesh(smallGeos[kind], smallMats[kind]);
+    m.position.copy(p); m.rotation.y = rr(0, TAU); m.scale.setScalar(0.001); scene.add(m);
+    planted.push({ m, t: 0, s: rr(1.3, 1.9) });
+    if (planted.length > 40) scene.remove(planted.shift().m);
+    return true;
+  }
+
+  /* day and night */
+  const PAL = {
+    day: { top: "#5E97D6", hor: "#E3EDE2", sunCol: "#FFE2A8", sunDir: [-0.42, 0.2, -0.88], fog: "#D9E6DC", hemiSky: "#E3ECF6", hemiGround: "#6A6436", hemiI: 1.0,
+      light: "#FFD9A0", lightI: 1.1, fill: "#FFF1DC", fillI: 0.55, base: "#233A14", tip: "#A6BE55", dry: "#D2B870", hill: ["#6F8C5A", "#56724A"], mix: [0.62, 0.45], mote: "#FFF3D2" },
+    night: { top: "#03070F", hor: "#16263A", sunCol: "#E4ECF6", sunDir: [0.38, 0.32, -0.87], fog: "#13202E", hemiSky: "#6D86A8", hemiGround: "#0A120C", hemiI: 0.55,
+      light: "#9FB4D4", lightI: 0.5, fill: "#7F93B8", fillI: 0.25, base: "#081208", tip: "#2F4E34", dry: "#454B33", hill: ["#1D2E2A", "#15231F"], mix: [0.55, 0.4], mote: "#DFF58A" }
+  };
+  function setTheme(night) {
+    const P = night ? PAL.night : PAL.day, sd = new T.Vector3(...P.sunDir).normalize();
+    skyU.top.value.set(P.top); skyU.hor.value.set(P.hor); skyU.sunCol.value.set(P.sunCol); skyU.sunDir.value.copy(sd); skyU.night.value = night ? 1 : 0;
+    scene.fog.color.set(P.fog); renderer.setClearColor(P.hor);
+    // by day the air is clear: haze only far away, so the tree line keeps its colour
+    scene.fog.near = night ? FOG.near : 34; scene.fog.far = night ? FOG.far : 200;
+    grassU.uFogNear.value = scene.fog.near; grassU.uFogFar.value = scene.fog.far;
+    hemi.color.set(P.hemiSky); hemi.groundColor.set(P.hemiGround); hemi.intensity = P.hemiI;
+    sun.color.set(P.light); sun.intensity = P.lightI; sun.position.copy(sd).multiplyScalar(60);
+    fill.color.set(P.fill); fill.intensity = P.fillI;
+    grassU.uBase.value.set(P.base); grassU.uTip.value.set(P.tip); grassU.uDry.value.set(P.dry); grassU.uFogCol.value.set(P.fog);
+    grassU.uSunDir.value.copy(sd); grassU.uSunCol.value.set(P.sunCol).multiplyScalar(night ? 0.35 : 1);
+    hillMats.forEach((m, k) => m.color.set(P.hill[k]).lerp(new T.Color(P.fog), P.mix[k]));
+    moteU.uNight.value = night ? 1 : 0; moteU.uCol.value.set(P.mote);
+  }
+
+  function resize() {
+    const w = cv.clientWidth || innerWidth, h = cv.clientHeight || innerHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h; camera.fov = camera.aspect < 0.8 ? 62 : 50; camera.updateProjectionMatrix();
+    const off = camera.aspect < 0.8 ? 0.42 : clamp(camera.aspect * 0.46, 0.55, 0.95);
+    heroFlowers.forEach(f => f.g.position.set(pathX(f.z) + f.side * off, 0, f.z));
+    moteU.uPR.value = renderer.getPixelRatio();
+  }
+  addEventListener("resize", resize);
+  resize();
+
+  let t = 0, wind = 0, gust = 0, gustT = 0, camX = 0, lookX = 0, lookY = 1.3;
+  const tmp = new T.Vector3();
+  function frame(dt, P) {
+    t += dt * (reduce ? 0.3 : 1); time.value = t;
+    if (Math.random() < dt * 0.1) gustT = rnd(0.3, 0.9) * pick([-1, 1]);
+    gustT *= Math.pow(0.4, dt); gust = lerp(gust, gustT, dt * 1.5);
+    wind = (Math.sin(t * 0.5) * 0.28 + Math.sin(t * 1.7 + 1.3) * 0.12 + gust) * (reduce ? 0.3 : 1);
+    windU.value = wind;
+
+    // camera walks the path; on phones it steps aside and turns to face each flower
+    const z = Z0 - P * D, portrait = camera.aspect < 0.8;
+    let bump = 0, near = null;
+    heroFlowers.forEach((f, i) => { const b = clamp(1 - Math.abs(P - (i + 0.9)) * 1.1, 0, 1); if (b > bump) { bump = b; near = f; } });
+    const eb = bump * bump * (3 - 2 * bump);
+    const tx = pathX(z) + (portrait && near ? -near.side * 0.2 * eb : 0) + mx * 0.35;
+    camX = lerp(camX, tx, 1 - Math.exp(-dt * 3));
+    const camY = (portrait ? 1.2 : 1.36) + my * 0.12 + Math.sin(t * 0.9) * 0.008;
+    camera.position.set(camX, camY, z);
+    let lx = pathX(z - 5) + mx * 0.2;
+    if (portrait && near) { const dz = Math.max(0.6, z - near.z); lx = lerp(lx, camX + (near.g.position.x - camX) * (5 / dz), eb); }
+    lookX = lerp(lookX, lx, 1 - Math.exp(-dt * 3));
+    lookY = lerp(lookY, (portrait ? 0.45 : 1.3) + my * 0.1, 1 - Math.exp(-dt * 3));
+    camera.lookAt(lookX, lookY, z - 5);
+    sky.position.copy(camera.position);
+    moteU.uCam.value.copy(camera.position);
+
+    // pointer parts the grass
+    pointerLife -= dt;
+    const gp = pointerLife > 0 ? groundAt((ndc.x + 1) / 2 * innerWidth, (1 - ndc.y) / 2 * innerHeight) : null;
+    if (gp) grassU.uPush.value.lerp(gp, 1 - Math.exp(-dt * 10));
+    grassU.uPushS.value = lerp(grassU.uPushS.value, gp ? 1 : 0, 1 - Math.exp(-dt * 3));
+
+    // skill flowers open as you approach
+    heroFlowers.forEach(f => {
+      const d = z - f.z;
+      f.g.visible = d > -3 && d < 60;
+      if (!f.g.visible) return;
+      const open = ease(clamp((NEAR + 4.2 - d) / 3.2, 0, 1));
+      for (const p of f.petals) { const o = ease(clamp(open * 1.3 - p.ri * 0.08, 0, 1)); p.m.rotation.x = lerp(1.4, p.open, o); p.m.scale.setScalar(lerp(0.6, 1, o)); }
+      f.g.rotation.z = Math.sin(t * 0.6 + f.ph) * 0.02 + wind * 0.025;
+      f.g.rotation.x = Math.sin(t * 0.45 + f.ph * 2) * 0.012;
+      f.head.rotation.z = Math.sin(t * 0.8 + f.ph) * 0.05;
+      if (f.seeds) {
+        const S = f.seeds, keep = Math.round(S.SN * clamp((d - 0.35) / (NEAR * 0.7 - 0.35), 0, 1));
+        f.head.scale.setScalar(1.25 * lerp(0.5, 1, open));
+        if (keep < S.keep && !reduce) {
+          f.head.updateMatrixWorld();
+          for (let k = keep; k < S.keep && flyers.length < 300; k++) {
+            const wpos = f.head.localToWorld(S.dirs[k].clone().multiplyScalar(0.11));
+            flyers.push({ p: wpos, v: new T.Vector3(rr(-0.1, 0.35), rr(0.15, 0.45), rr(-0.25, 0.1)), life: 1, ph: rr(0, TAU) });
+          }
+        }
+        S.keep = keep; S.lg.setDrawRange(0, keep * 14);
+      }
+    });
+    butterflyStep(dt, P, t);
+    for (let i = flyers.length - 1; i >= 0; i--) {
+      const q = flyers[i];
+      q.v.x += (wind * 0.6 - q.v.x) * dt * 0.5; q.v.y += (0.22 + Math.sin(t * 2 + q.ph) * 0.12 - q.v.y) * dt;
+      q.p.addScaledVector(q.v, dt); q.life -= dt * 0.09;
+      if (q.life <= 0) flyers.splice(i, 1);
+    }
+    flyers.forEach((q, i) => flyPos.set([q.p.x, q.p.y, q.p.z], i * 3));
+    flyGeo.attributes.position.needsUpdate = true; flyGeo.setDrawRange(0, flyers.length);
+
+    // butterflies drift ahead of you
+    flies.forEach(bf => {
+      const x = camX + bf.ax + Math.sin(t * bf.f[0] + bf.ph) * 1.1, y = bf.ay + Math.sin(t * bf.f[1] + bf.ph * 2) * 0.3, zz = z + bf.az + Math.cos(t * bf.f[2] + bf.ph) * 1.2;
+      bf.b.position.set(x, y, zz);
+      tmp.set(x, y, zz).sub(bf.prev); if (tmp.lengthSq() > 1e-8) bf.b.lookAt(tmp.add(bf.b.position));
+      bf.prev.set(x, y, zz);
+      const flap = 0.2 + Math.sin(t * 17 + bf.ph) * 0.95;
+      bf.wr.rotation.z = flap; bf.wl.rotation.z = -flap;
+    });
+    planted.forEach(p => { p.t = Math.min(1, p.t + dt * 0.8); const k = p.t, s = 1 + 2.2 * Math.pow(k - 1, 3) + 1.2 * Math.pow(k - 1, 2); p.m.scale.setScalar(Math.max(0.001, p.s * s)); });
+
+    renderer.render(scene, camera);
+  }
+  return { frame, setTheme, plant, resize, wind: () => wind };
+}
+const world = createWorld();
+walk.fallback = !world;
+if (!world) root.classList.add("no-webgl");
+else themeListeners.push(() => world.setTheme(C.night));
+
+/* ---------- seed packets ---------- */
+const PROJECTS = [
+  { title: "Emotion AI Chatbot", latin: "A chatbot that understands feelings", hue: "--petal-a", flower: "poppy", lot: "01",
+    desc: "A chatbot that picks up the feeling behind a message and replies with care. A machine-learning model spots the emotion and an AI model writes the answer, inside an animated React app.",
+    facts: [["Front-end", "React, Framer Motion, Lottie"], ["Back-end", "Express, SQLite, emotion model, OpenAI"], ["Security", "Firebase login, secure tokens"]] },
+  { title: "Smart Fard Scanner", latin: "Reads land records for you", hue: "--petal-d", flower: "daisy", lot: "02",
+    desc: "Reads scanned Punjab land records (Fard / Jamabandi) and turns them into clean, checked data in five steps: upload, read, pick out the text, check each field, and save.",
+    facts: [["Front-end", "React, Vite"], ["Back-end", "Deno, LlamaParse, Groq, Claude"], ["Security", "Private files, each user sees only their own data"]] },
+  { title: "FARD Extractor", latin: "Land records into useful data", hue: "--petal-b", flower: "foxglove", lot: "03",
+    desc: "A complete app that pulls the key details out of land records. When it isn't sure about a detail, a person checks it. Everything is saved in a database you can search.",
+    facts: [["Front-end", "React, Vite"], ["Back-end", "Node, Express, PostgreSQL, SQLite"], ["Result", "Owner, khewat, khasra and area, checked by a person"]] },
+  { title: "This Website", latin: "The page you're on right now", hue: "--leaf", flower: "tulip", lot: "04",
+    desc: "Every flower here is drawn with code, and the wind follows your mouse. It's one file with no framework.",
+    facts: [["Front-end", "HTML, CSS"], ["Graphics", "Canvas drawing, 3D (WebGL), SVG"], ["Extras", "Calmer motion option, day and night themes"]] }
+];
+$("#packets").innerHTML = PROJECTS.map((p, i) => `
+  <div class="packet-wrap">
+    <article class="packet" style="--hue:var(${p.hue})">
+      <div class="pk-top mono"><span>Seerat Seed Co.</span><span>Project ${p.lot}</span></div>
+      <canvas class="pk-art" data-i="${i}" aria-hidden="true"></canvas>
+      <h3>${p.title}</h3>
+      <p class="pk-latin">${p.latin}</p>
+      <p class="pk-desc">${p.desc}</p>
+      <dl class="pk-facts">${p.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
+    </article>
+  </div>`).join("");
+
+function drawPacket(cv, i) {
+  const P = PROJECTS[i], d = DPR(), w = cv.clientWidth, h = cv.clientHeight;
+  if (!w) return;
+  cv.width = w * d; cv.height = h * d;
+  const x = cv.getContext("2d"); x.setTransform(d, 0, 0, d, 0, 0);
+  const hue = C[P.hue.slice(2)] || C["petal-a"];
+  // sun disc
+  x.fillStyle = hue; x.globalAlpha = 0.16; x.beginPath(); x.arc(w * 0.72, h * 0.36, h * 0.3, 0, TAU); x.fill(); x.globalAlpha = 1;
+  // ground line + seeds
+  x.fillStyle = C.soil; x.globalAlpha = 0.25; x.fillRect(0, h - 16, w, 16); x.globalAlpha = 0.8;
+  const r = mulberry(i * 31 + 5);
+  for (let k = 0; k < 7; k++) { x.beginPath(); x.ellipse(w * 0.08 + r() * w * 0.84, h - 8 + (r() - 0.5) * 6, 3.4, 2, r() * 3, 0, TAU); x.fill(); }
+  x.globalAlpha = 1;
+  const plants = [];
+  const main = makePlant(w * 0.5, 16, P.flower, h * 0.72, 1); main.g = 1; main.h = h * 0.72; main.lean = 0.02; main.curl = 0.05; main.bend = 0.15;
+  main.petalKey = P.hue.slice(2); if (main.petalKey === "leaf") main.petalKey = "petal-a";
+  main.r *= 1.35; if (P.flower === "foxglove") main.r = 10;
+  const side1 = makePlant(w * 0.3, 16, "grass", h * 0.4, 1), side2 = makePlant(w * 0.7, 16, "grass", h * 0.35, 1);
+  const buddy = makePlant(w * 0.24, 16, P.flower === "daisy" ? "daisy" : "lavender", h * 0.5, 0.9); buddy.petalKey = P.flower === "daisy" ? "petal-c" : "petal-b";
+  for (const p of [side1, side2, buddy, main]) { p.g = 1; p.y = h - p.yb; plants.push(p); }
+  x.save(); plants.forEach(p => drawPlant(x, p)); x.restore();
+}
+const drawAllPackets = () => document.querySelectorAll(".pk-art").forEach(cv => drawPacket(cv, +cv.dataset.i));
+
+document.querySelectorAll(".packet-wrap").forEach(wr => {
+  if (reduce) return;
+  wr.addEventListener("pointermove", e => {
+    const r = wr.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+    wr.classList.add("live");
+    wr.style.setProperty("--rx", ((0.5 - py) * 14).toFixed(2) + "deg");
+    wr.style.setProperty("--ry", ((px - 0.5) * 16).toFixed(2) + "deg");
+    wr.style.setProperty("--gx", (px * 100).toFixed(1) + "%"); wr.style.setProperty("--gy", (py * 100).toFixed(1) + "%");
+  });
+  wr.addEventListener("pointerleave", () => { wr.classList.remove("live"); wr.style.setProperty("--rx", "0deg"); wr.style.setProperty("--ry", "0deg"); });
+});
+
+/* ---------- growth cycle ---------- */
+const stages = [...document.querySelectorAll(".stage")];
+let active = 0, hoverLock = false;
+function setStage(i) { stages.forEach((s, k) => s.classList.toggle("is-active", k === i)); active = i; }
+stages.forEach((s, i) => {
+  s.addEventListener("pointerenter", () => { hoverLock = true; s.classList.remove("is-active"); void s.offsetWidth; setStage(i); });
+  s.addEventListener("pointerleave", () => { hoverLock = false; });
+});
+setStage(0);
+if (!reduce) setInterval(() => { if (!hoverLock && !document.hidden) setStage((active + 1) % 4); }, 2600);
+
+/* ---------- visitor bed ---------- */
+const bed = new Garden({ back: $("#bedCanvas"), host: $("#bed"), kind: "bed" });
+let notes = [];
+try { notes = JSON.parse(localStorage.getItem("garden-notes") || "[]").slice(-12); } catch (e) { notes = []; }
+function bedX(i) { const W = bed.w || 400; return W * (0.12 + ((i * 0.37) % 1) * 0.76); }
+notes.forEach((n, i) => { const p = bed.plantAt(bedX(i), { tag: n.name, type: n.type, maxH: (bed.h || 280) * 0.55 }); p.g = 1; });
+bed.parts = bed.parts.filter(q => q.kind !== "soil");
+const bedCount = () => $("#bedCount").textContent = notes.length === 1 ? "1 note planted" : `${notes.length} notes planted`;
+bedCount();
+const EMAIL = $("#email").textContent.trim();
+async function copy(text) {
+  try { await navigator.clipboard.writeText(text); return true; } catch (e) { return false; }
+}
+function selectEmail() { const r = document.createRange(); r.selectNodeContents($("#email")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+$("#copyMail").addEventListener("click", async e => {
+  const b = e.currentTarget, ok = await copy(EMAIL);
+  if (!ok) selectEmail();
+  b.textContent = ok ? "Copied" : "Selected, press copy"; setTimeout(() => b.textContent = "Copy email", 2200);
+});
+$("#plantForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const nameIn = $("#pName"), name = nameIn.value.trim().slice(0, 16), what = $("#pWhat").value, st = $("#status");
+  if (!name) { st.innerHTML = "Add your name first. It goes on the plant tag."; nameIn.focus(); return; }
+  const type = pick(["daisy", "poppy", "tulip", "foxglove", "lavender"]);
+  bed.plantAt(bedX(notes.length), { tag: name, type, maxH: bed.h * 0.55 });
+  notes.push({ name, type });
+  if (notes.length > 12) notes.shift();
+  try { localStorage.setItem("garden-notes", JSON.stringify(notes)); } catch (err) {}
+  bedCount();
+  const note = `Hi Seerat, I'm ${name}. I found your garden portfolio and I'd love to grow ${what} together.`;
+  const ok = await copy(note);
+  st.innerHTML = ok
+    ? `Planted, ${name}. Your note is copied too: paste it into an email to <b>${EMAIL}</b> and it'll reach me.`
+    : `Planted, ${name}. To send the note, email <b>${EMAIL}</b>: “${note}”`;
+  nameIn.value = "";
+});
+
+/* ---------- magnetic buttons ---------- */
+if (!reduce) document.querySelectorAll(".magnet").forEach(b => {
+  b.addEventListener("pointermove", e => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.22}px,${(e.clientY - r.top - r.height / 2) * 0.35}px)`; });
+  b.addEventListener("pointerleave", () => b.style.transform = "");
+});
+
+/* ---------- scroll vine ---------- */
+const vine = $("#vine"), vPath = $("#vinePath");
+let vLen = 0, vLeaves = [], vFlower = null;
+function buildVine() {
+  if (getComputedStyle(vine.parentNode).display === "none") return;
+  const H = innerHeight;
+  let d = "";
+  for (let y = 0; y <= H; y += 12) { const x = 30 + Math.sin(y * 0.011) * 12 + Math.sin(y * 0.037) * 5; d += (y ? " L" : "M") + x.toFixed(1) + " " + y; }
+  vPath.setAttribute("d", d);
+  vLen = vPath.getTotalLength();
+  vPath.style.strokeDasharray = vLen;
+  vine.querySelectorAll(".v-leaf,.v-flower").forEach(n => n.remove());
+  vLeaves = [];
+  const NS = "http://www.w3.org/2000/svg";
+  for (let k = 0; k < 16; k++) {
+    const at = (k + 0.6) / 16.5, p1 = vPath.getPointAtLength(at * vLen), p2 = vPath.getPointAtLength(Math.min(vLen, at * vLen + 2));
+    const ang = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI + (k % 2 ? 55 : -55) + 180;
+    const g = document.createElementNS(NS, "g"); g.setAttribute("class", "v-leaf"); g.setAttribute("transform", `translate(${p1.x} ${p1.y}) rotate(${ang})`);
+    const pa = document.createElementNS(NS, "path"); pa.setAttribute("d", "M0 0Q8 -7 19 0Q8 7 0 0Z"); g.appendChild(pa);
+    vine.appendChild(g); vLeaves.push({ g, at });
+  }
+  const end = vPath.getPointAtLength(vLen - 1);
+  vFlower = document.createElementNS(NS, "g"); vFlower.setAttribute("class", "v-flower");
+  vFlower.innerHTML = [0, 72, 144, 216, 288].map(a => `<ellipse cx="${end.x}" cy="${end.y - 9}" rx="5" ry="9" transform="rotate(${a} ${end.x} ${end.y})" fill="var(--petal-a)"/>`).join("") + `<circle cx="${end.x}" cy="${end.y}" r="4.5" fill="var(--pollen)"/>`;
+  vine.appendChild(vFlower);
+  onScroll();
+}
+function onScroll() {
+  const max = document.documentElement.scrollHeight - innerHeight, prog = max > 0 ? clamp(scrollY / max, 0, 1) : 0;
+  $("#nav").style.setProperty("--nav-bg", clamp(scrollY / 200, 0, 1));
+  if (!vLen) return;
+  vPath.style.strokeDashoffset = vLen * (1 - prog);
+  vLeaves.forEach(l => l.g.classList.toggle("on", l.at <= prog));
+  if (vFlower) vFlower.classList.toggle("on", prog > 0.985);
+}
+addEventListener("scroll", onScroll, { passive: true });
+addEventListener("resize", () => { vLen = 0; buildVine(); });
+
+/* ---------- season ---------- */
+const mo = new Date().getMonth();
+const season = ["Winter", "Winter", "Spring", "Spring", "Spring", "Summer", "Summer", "Summer", "Autumn", "Autumn", "Autumn", "Winter"][mo];
+$("#seasonNow").textContent = `${season} in your garden`;
+$("#season").textContent = `Open to frontend and design jobs, ${season.toLowerCase()} ${new Date().getFullYear()}`;
+
+/* ---------- boot ---------- */
+function paintStatic() { drawAllPackets(); }
+themeListeners.push(paintStatic);
+themeChanged();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(paintStatic);
+let rw = 0; addEventListener("resize", () => { if (Math.abs(innerWidth - rw) > 30) { rw = innerWidth; paintStatic(); } });
+rw = innerWidth;
+buildVine();
+
+let last = performance.now();
+function loop(now) {
+  const dt = Math.min(0.05, (now - last) / 1000); last = now;
+  if (!document.hidden) {
+    if (heroG.visible) { heroG.frame(dt); hero.style.setProperty("--sway", (heroG.wind * 5).toFixed(2)); }
+    if (bed.visible) bed.frame(dt);
+    if (walk.visible) { walk.frame(dt); if (world) world.frame(dt, walk.P); }
+  }
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+})();
+</script>
+
+</html>
